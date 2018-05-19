@@ -1,0 +1,53 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "1_Monolith", "1_Monolith", "{936D22F2-C90E-48B9-A209-A04A63CF16D9}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Monolith", "1_Monolith\Monolith.csproj", "{F04C165F-1694-44B6-9304-F30546C92559}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "2_Service", "2_Service", "{36CE2D65-BA35-474D-ACC0-61055F02955D}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MyBackgroundCheckService.Api", "2_Service\MyBackgroundCheckService.Api\MyBackgroundCheckService.Api.csproj", "{75522EE2-20BF-4855-B271-252FB98AC9D1}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MyBackgroundCheckService.Processor", "2_Service\MyBackgroundCheckService.Processor\MyBackgroundCheckService.Processor.csproj", "{85733763-860B-450F-A6A0-09D19AD88E55}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "3_Provider", "3_Provider", "{80E91BCF-EEC4-4D58-8186-BB77D669AF60}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BobBackgroundCheckProvider.Api", "3_Provider\BobBackgroundCheckProvider.Api\BobBackgroundCheckProvider.Api.csproj", "{87AFB50A-3705-417B-A94D-5AD53D66A66C}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BobBackgroundCheckProvider.Processor", "3_Provider\BobBackgroundCheckProvider.Processor\BobBackgroundCheckProvider.Processor.csproj", "{F43FA79C-1B69-40C4-BC06-85949CB7DF24}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{F04C165F-1694-44B6-9304-F30546C92559} = {936D22F2-C90E-48B9-A209-A04A63CF16D9}
+		{75522EE2-20BF-4855-B271-252FB98AC9D1} = {36CE2D65-BA35-474D-ACC0-61055F02955D}
+		{85733763-860B-450F-A6A0-09D19AD88E55} = {36CE2D65-BA35-474D-ACC0-61055F02955D}
+		{87AFB50A-3705-417B-A94D-5AD53D66A66C} = {80E91BCF-EEC4-4D58-8186-BB77D669AF60}
+		{F43FA79C-1B69-40C4-BC06-85949CB7DF24} = {80E91BCF-EEC4-4D58-8186-BB77D669AF60}
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{F04C165F-1694-44B6-9304-F30546C92559}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F04C165F-1694-44B6-9304-F30546C92559}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F04C165F-1694-44B6-9304-F30546C92559}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F04C165F-1694-44B6-9304-F30546C92559}.Release|Any CPU.Build.0 = Release|Any CPU
+		{75522EE2-20BF-4855-B271-252FB98AC9D1}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{75522EE2-20BF-4855-B271-252FB98AC9D1}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{75522EE2-20BF-4855-B271-252FB98AC9D1}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{75522EE2-20BF-4855-B271-252FB98AC9D1}.Release|Any CPU.Build.0 = Release|Any CPU
+		{85733763-860B-450F-A6A0-09D19AD88E55}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{85733763-860B-450F-A6A0-09D19AD88E55}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{85733763-860B-450F-A6A0-09D19AD88E55}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{85733763-860B-450F-A6A0-09D19AD88E55}.Release|Any CPU.Build.0 = Release|Any CPU
+		{87AFB50A-3705-417B-A94D-5AD53D66A66C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{87AFB50A-3705-417B-A94D-5AD53D66A66C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{87AFB50A-3705-417B-A94D-5AD53D66A66C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{87AFB50A-3705-417B-A94D-5AD53D66A66C}.Release|Any CPU.Build.0 = Release|Any CPU
+		{F43FA79C-1B69-40C4-BC06-85949CB7DF24}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F43FA79C-1B69-40C4-BC06-85949CB7DF24}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F43FA79C-1B69-40C4-BC06-85949CB7DF24}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F43FA79C-1B69-40C4-BC06-85949CB7DF24}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+EndGlobal
