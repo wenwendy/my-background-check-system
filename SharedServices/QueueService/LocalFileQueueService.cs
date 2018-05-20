@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.IO;
+using System.Linq;
 using Newtonsoft.Json;
 
 namespace QueueService
@@ -24,8 +25,11 @@ namespace QueueService
                 using (var r = new StreamReader(LocalQueueFile(queueName)))
                 {
                     var queueItems = JsonConvert.DeserializeObject<List<string>>(r.ReadToEnd());
-
-                    return queueItems[0];
+                    
+                    if (queueItems != null && queueItems.Any())
+                        return queueItems[0];
+                    
+                    return string.Empty;
                 }   
             }
             catch(FileNotFoundException)
@@ -33,8 +37,20 @@ namespace QueueService
                 return string.Empty;
             }
         }
+
+        public void RemoveFromQueue(string queueItem, string queueName)
+        {
+            var queueItems = QueueItems(queueName);
+            var itemToDelete = queueItems.FirstOrDefault(i => i == queueItem);
+            
+            if (itemToDelete != null)
+                queueItems.Remove(itemToDelete);
+            
+            File.WriteAllText(LocalQueueFile(queueName), JsonConvert.SerializeObject(queueItems));
+        }
         
         
+
         private static string LocalQueueFile(string queueName)
         {
             return $@"{QueuePath}/{queueName}.json";

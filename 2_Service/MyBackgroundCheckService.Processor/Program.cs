@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Threading;
 using MyBackgroundCheckService.Processor.DTOs;
 using MyBackgroundCheckService.Processor.Senders;
 using MyBackgroundCheckService.Processor.Transformers;
@@ -9,10 +10,10 @@ namespace MyBackgroundCheckService.Processor
 {
     class Program
     {
+        const string InvitationQueueName = "invitation";
+        
         static void Main(string[] args)
         {
-            const string InvitationQueueName = "invitation";
-
             var queueService = new LocalFileQueueService();
             var transformer = new BobTransformer();
             var sender = new BobProviderSender();
@@ -27,15 +28,12 @@ namespace MyBackgroundCheckService.Processor
                     var received = sender.Send(transformedInvitation);
                     if (received)
                     {
-                        RemoveInvitationFromQueue(queueService);
+                        RemoveInvitationFromQueue(queueService, invitation);
                     }
                 }
-            }
-        }
 
-        private static void RemoveInvitationFromQueue(IQueueService queueService)
-        {
-            
+                RestABit();
+            }
         }
 
         private static InvitationDto GetAnInvitationFromQueue(IQueueService queueService, string InvitationQueueName)
@@ -51,6 +49,20 @@ namespace MyBackgroundCheckService.Processor
             Console.WriteLine($"getting from queue: {invitation.Id}");
 
             return invitation;
+        }
+        
+        private static void RemoveInvitationFromQueue(IQueueService queueService, InvitationDto invitation)
+        {
+            Console.WriteLine($"removing item {JsonConvert.SerializeObject(invitation)} ...");
+            queueService.RemoveFromQueue(JsonConvert.SerializeObject(invitation), InvitationQueueName);
+            Console.WriteLine($"removed item {JsonConvert.SerializeObject(invitation)}");
+        }
+        
+        private static void RestABit()
+        {
+            Console.WriteLine("sleep for 10 seconds");
+            
+            Thread.Sleep(TimeSpan.FromSeconds(10));
         }
     }
 }
