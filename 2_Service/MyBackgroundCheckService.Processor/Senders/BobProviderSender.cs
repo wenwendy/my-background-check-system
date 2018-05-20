@@ -1,11 +1,23 @@
-﻿namespace MyBackgroundCheckService.Processor.Senders
+﻿using System;
+using System.Net.Http;
+using System.Threading.Tasks;
+
+namespace MyBackgroundCheckService.Processor.Senders
 {
     public class BobProviderSender : ISender
     {
-        public bool Send(object transformedInvitation)
+        public async Task<bool> Send(object transformedInvitation)
         {
-            //send to bob the provider
-            return true;
+            const string uri = "http://localhost:58527/bobapi/invitation";
+
+            var client = new HttpClient
+            {
+                BaseAddress = new Uri(uri)
+            };
+
+            var response = await client.PostAsJsonAsync("", transformedInvitation);
+            
+            return (int)response.StatusCode >= 200;
         }
     }
 }

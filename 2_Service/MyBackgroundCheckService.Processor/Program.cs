@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Threading;
+using System.Threading.Tasks;
 using MyBackgroundCheckService.Processor.DTOs;
 using MyBackgroundCheckService.Processor.Senders;
 using MyBackgroundCheckService.Processor.Transformers;
@@ -12,7 +13,7 @@ namespace MyBackgroundCheckService.Processor
     {
         const string InvitationQueueName = "invitation";
         
-        static void Main(string[] args)
+        static async Task Main(string[] args)
         {
             var queueService = new LocalFileQueueService();
             var transformer = new BobTransformer();
@@ -25,14 +26,15 @@ namespace MyBackgroundCheckService.Processor
                 if (invitation != null)
                 {
                     var transformedInvitation = transformer.Transform(invitation);
-                    var received = sender.Send(transformedInvitation);
+                    var received = await sender.Send(transformedInvitation);
+                    
                     if (received)
                     {
                         RemoveInvitationFromQueue(queueService, invitation);
                     }
                 }
 
-                RestABit();
+                await RestABit();
             }
         }
 
@@ -58,11 +60,11 @@ namespace MyBackgroundCheckService.Processor
             Console.WriteLine($"removed item {JsonConvert.SerializeObject(invitation)}");
         }
         
-        private static void RestABit()
+        private static async Task RestABit()
         {
             Console.WriteLine("sleep for 10 seconds");
             
-            Thread.Sleep(TimeSpan.FromSeconds(10));
+            await Task.Delay(TimeSpan.FromSeconds(10));
         }
     }
 }
