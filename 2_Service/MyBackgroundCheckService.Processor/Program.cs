@@ -1,4 +1,5 @@
 ﻿using System;
+using QueueService;
 
 namespace MyBackgroundCheckService.Processor
 {
@@ -6,7 +7,12 @@ namespace MyBackgroundCheckService.Processor
     {
         static void Main(string[] args)
         {
-            Console.WriteLine("Hello World!");
+            Console.WriteLine("getting item from queue ...");
+            
+            const string InvitationQueueName = "invitation";
+            
+            var queue = new LocalFileQueueService();
+            Console.WriteLine($"getting from queue: {queue.GetAQueueItem(InvitationQueueName)}");
         }
     }
 }

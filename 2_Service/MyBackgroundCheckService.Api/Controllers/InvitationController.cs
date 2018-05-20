@@ -1,50 +1,32 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using MyBackgroundCheckService.Api.DTOs;
+using Newtonsoft.Json;
+using QueueService;
 
 namespace MyBackgroundCheckService.Api.Controllers
 {
+    
     [Route("api/[controller]")]
     public class InvitationController : Controller
     {
-        // GET api/values
-        [HttpGet]
-        public IEnumerable<string> Get()
-        {
-            return new string[] { "value1", "value2" };
-        }
+        private const string InvitationQueueName = "invitation";
+        private readonly IQueueService _queueService;
 
-        // GET api/values/5
-        [HttpGet("{id}")]
-        public string Get(int id)
+        public InvitationController(IQueueService queueService)
         {
-            return "value";
+            _queueService = queueService;
         }
-
-        // POST api/values
+        
         [HttpPost]
         public IActionResult Post([FromBody] InvitaitonDTO invitation)
         {
             Console.WriteLine($"received invitation: {invitation.Id}");
-            
-            // Add to queue
-
+        
+            _queueService.AddToQueue(InvitationQueueName, JsonConvert.SerializeObject(invitation));
+           
             return Ok($"invitation: {invitation.Id} received");
         }
 
-        // PUT api/values/5
-        [HttpPut("{id}")]
-        public void Put(int id, [FromBody]string value)
-        {
-        }
-
-        // DELETE api/values/5
-        [HttpDelete("{id}")]
-        public void Delete(int id)
-        {
-        }
     }
 }

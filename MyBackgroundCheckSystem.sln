@@ -19,6 +19,15 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BobBackgroundCheckProvider.
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BobBackgroundCheckProvider.Processor", "3_Provider\BobBackgroundCheckProvider.Processor\BobBackgroundCheckProvider.Processor.csproj", "{F43FA79C-1B69-40C4-BC06-85949CB7DF24}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "SharedServices", "SharedServices", "{C5F73890-CBE1-4C76-8165-400BA56D4B4A}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "QueueService", "SharedServices\QueueService\QueueService.csproj", "{90503E8C-7E06-452C-800A-9C724AA9ED53}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Queues", "Queues", "{A7447D9E-3990-4E64-AD14-7D832C55AF3D}"
+ProjectSection(SolutionItems) = preProject
+	SharedServices\Queues\invitation.json = SharedServices\Queues\invitation.json
+EndProjectSection
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -30,6 +39,8 @@ Global
 		{85733763-860B-450F-A6A0-09D19AD88E55} = {36CE2D65-BA35-474D-ACC0-61055F02955D}
 		{87AFB50A-3705-417B-A94D-5AD53D66A66C} = {80E91BCF-EEC4-4D58-8186-BB77D669AF60}
 		{F43FA79C-1B69-40C4-BC06-85949CB7DF24} = {80E91BCF-EEC4-4D58-8186-BB77D669AF60}
+		{90503E8C-7E06-452C-800A-9C724AA9ED53} = {C5F73890-CBE1-4C76-8165-400BA56D4B4A}
+		{A7447D9E-3990-4E64-AD14-7D832C55AF3D} = {C5F73890-CBE1-4C76-8165-400BA56D4B4A}
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
 		{F04C165F-1694-44B6-9304-F30546C92559}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
@@ -52,5 +63,9 @@ Global
 		{F43FA79C-1B69-40C4-BC06-85949CB7DF24}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{F43FA79C-1B69-40C4-BC06-85949CB7DF24}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{F43FA79C-1B69-40C4-BC06-85949CB7DF24}.Release|Any CPU.Build.0 = Release|Any CPU
+		{90503E8C-7E06-452C-800A-9C724AA9ED53}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{90503E8C-7E06-452C-800A-9C724AA9ED53}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{90503E8C-7E06-452C-800A-9C724AA9ED53}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{90503E8C-7E06-452C-800A-9C724AA9ED53}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 EndGlobal
