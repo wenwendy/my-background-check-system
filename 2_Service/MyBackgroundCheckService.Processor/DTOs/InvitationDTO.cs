@@ -1,4 +1,4 @@
-﻿namespace MyBackgroundCheckService.Api.DTOs
+﻿namespace MyBackgroundCheckService.Processor.DTOs
 {
     public class InvitationDto
     {
