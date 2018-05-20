@@ -1,7 +1,5 @@
 ﻿using System;
 using System.Net.Http;
-using System.Text;
-using Newtonsoft.Json;
 
 namespace Monolith
 {
@@ -9,17 +7,37 @@ namespace Monolith
     {
         public static void Main(string[] args)
         {
-            Console.WriteLine("Hello World!");
-            var invitation = new { id = 123, provider = "bob" };
-            const string uri = "https://localhost:1111/api/addinvitation";
-            var content = new StringContent(JsonConvert.SerializeObject(invitation), Encoding.UTF8, "application/json");
+            var invitation = GetInvitation();
+            
+            Console.WriteLine("posting an invitation ...");
+            var receipt = SendInvitation(invitation);
 
-            var client = new HttpClient();
-            var response = client.PostAsync(uri, content).Result; 
+            Console.WriteLine(receipt);
+        }
+        
+
+        private static object GetInvitation()
+        {
+            return new
+            {
+                id = 123, 
+                provider = "bob"
+            };
+        }
+        
+        private static string SendInvitation(object invitation)
+        {
+            const string uri = "http://localhost:4777/api/invitation";
+
+            var client = new HttpClient
+            {
+                BaseAddress = new Uri(uri)
+            };
+
+            var response = client.PostAsJsonAsync("", invitation).Result;
             var responseString = response.Content.ReadAsStringAsync().Result;
-
-            Console.WriteLine(responseString);
-         
+            
+            return responseString;
         }
     }
 }

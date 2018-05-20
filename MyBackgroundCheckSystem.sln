@@ -5,6 +5,9 @@ EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Monolith", "1_Monolith\Monolith.csproj", "{F04C165F-1694-44B6-9304-F30546C92559}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "2_Service", "2_Service", "{36CE2D65-BA35-474D-ACC0-61055F02955D}"
+ProjectSection(SolutionItems) = preProject
+	2_Service\Readme.md = 2_Service\Readme.md
+EndProjectSection
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MyBackgroundCheckService.Api", "2_Service\MyBackgroundCheckService.Api\MyBackgroundCheckService.Api.csproj", "{75522EE2-20BF-4855-B271-252FB98AC9D1}"
 EndProject

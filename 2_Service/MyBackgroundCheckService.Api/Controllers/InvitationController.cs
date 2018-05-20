@@ -3,11 +3,12 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
+using MyBackgroundCheckService.Api.DTOs;
 
 namespace MyBackgroundCheckService.Api.Controllers
 {
     [Route("api/[controller]")]
-    public class ValuesController : Controller
+    public class InvitationController : Controller
     {
         // GET api/values
         [HttpGet]
@@ -25,8 +26,13 @@ namespace MyBackgroundCheckService.Api.Controllers
 
         // POST api/values
         [HttpPost]
-        public void Post([FromBody]string value)
+        public IActionResult Post([FromBody] InvitaitonDTO invitation)
         {
+            Console.WriteLine($"received invitation: {invitation.Id}");
+            
+            // Add to queue
+
+            return Ok($"invitation: {invitation.Id} received");
         }
 
         // PUT api/values/5
