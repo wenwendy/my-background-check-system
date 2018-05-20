@@ -19,7 +19,7 @@ namespace MyBackgroundCheckService.Api.Controllers
         }
         
         [HttpPost]
-        public IActionResult Post([FromBody] InvitationDto invitation)
+        public IActionResult Add([FromBody] InvitationDto invitation)
         {
             Console.WriteLine($"received invitation: {invitation.Id}");
         

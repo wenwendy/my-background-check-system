@@ -23,9 +23,10 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "SharedServices", "SharedSer
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "QueueService", "SharedServices\QueueService\QueueService.csproj", "{90503E8C-7E06-452C-800A-9C724AA9ED53}"
 EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Queues", "Queues", "{A7447D9E-3990-4E64-AD14-7D832C55AF3D}"
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Queues", "Queues", "{233BEA0B-FC12-4094-AAA3-3CB47FB92838}"
 ProjectSection(SolutionItems) = preProject
-	SharedServices\Queues\invitation.json = SharedServices\Queues\invitation.json
+	2_Service\Queues\invitation.json = 2_Service\Queues\invitation.json
+	2_Service\Queues\result.json = 2_Service\Queues\result.json
 EndProjectSection
 EndProject
 Global
@@ -40,7 +41,7 @@ Global
 		{87AFB50A-3705-417B-A94D-5AD53D66A66C} = {80E91BCF-EEC4-4D58-8186-BB77D669AF60}
 		{F43FA79C-1B69-40C4-BC06-85949CB7DF24} = {80E91BCF-EEC4-4D58-8186-BB77D669AF60}
 		{90503E8C-7E06-452C-800A-9C724AA9ED53} = {C5F73890-CBE1-4C76-8165-400BA56D4B4A}
-		{A7447D9E-3990-4E64-AD14-7D832C55AF3D} = {C5F73890-CBE1-4C76-8165-400BA56D4B4A}
+		{233BEA0B-FC12-4094-AAA3-3CB47FB92838} = {36CE2D65-BA35-474D-ACC0-61055F02955D}
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
 		{F04C165F-1694-44B6-9304-F30546C92559}.Debug|Any CPU.ActiveCfg = Debug|Any CPU

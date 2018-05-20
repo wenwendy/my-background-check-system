@@ -7,7 +7,7 @@ namespace QueueService
 {
     public class LocalFileQueueService : IQueueService
     {
-        private const string QueuePath = @"../../SharedServices/Queues";
+        private const string QueuePath = @"../Queues";
     
         public void AddToQueue(string queueName, string content)
         {
