@@ -10,14 +10,14 @@ namespace MyBackgroundCheckService.Processor
 {
     public class ResultProcessor
     {
-        private readonly IInvitationTransformer _invitationTransformer;
+        private readonly IResultTransformer _resultTransformer;
         private readonly ISender _sender;
-        const string InvitationQueueName = "invitation";
+        const string ResultQueueName = "result";
 
         public ResultProcessor()
         {
-            _invitationTransformer = new BobInvitationTransformer();
-            _sender = new BobProviderSender();
+            _resultTransformer = new MonolithResultTransformer();
+            _sender = new MonolithSender();
         }
         
         public async Task Process()
@@ -26,16 +26,16 @@ namespace MyBackgroundCheckService.Processor
             
             while (true)
             {
-                var invitation = GetAnInvitationFromQueue(queueService, InvitationQueueName);
+                var result = GetAResultFromQueue(queueService);
 
-                if (invitation != null)
+                if (result != null)
                 {
-                    var transformedInvitation = _invitationTransformer.Transform(invitation);
-                    var received = await _sender.Send(transformedInvitation);
+                    var transformedResult = _resultTransformer.Transform(result);
+                    var received = await _sender.Send(transformedResult);
                     
                     if (received)
                     {
-                        RemoveInvitationFromQueue(queueService, invitation);
+                        RemoveResultFromQueue(queueService, result);
                     }
                 }
 
@@ -43,26 +43,26 @@ namespace MyBackgroundCheckService.Processor
             }
         }
         
-        private InvitationDto GetAnInvitationFromQueue(IQueueService queueService, string InvitationQueueName)
+        private ResultDto GetAResultFromQueue(IQueueService queueService)
         {
-            InvitationDto invitation = null;
+            ResultDto result = null;
             
             Console.WriteLine("getting item from queue ...");
-            var invitationJsonString = queueService.GetAQueueItem(InvitationQueueName);
+            var resultJsonString = queueService.GetAQueueItem(ResultQueueName);
 
-            if (string.IsNullOrEmpty(invitationJsonString)) return invitation;
+            if (string.IsNullOrEmpty(resultJsonString)) return result;
             
-            invitation = JsonConvert.DeserializeObject<InvitationDto>(invitationJsonString);
-            Console.WriteLine($"getting from queue: {JsonConvert.SerializeObject(invitation)}");
+            result = JsonConvert.DeserializeObject<ResultDto>(resultJsonString);
+            Console.WriteLine($"getting from queue: {JsonConvert.SerializeObject(result)}");
 
-            return invitation;
+            return result;
         }
         
-        private void RemoveInvitationFromQueue(IQueueService queueService, object invitation)
+        private void RemoveResultFromQueue(IQueueService queueService, object result)
         {
-            Console.WriteLine($"removing item {JsonConvert.SerializeObject(invitation)} ...");
-            queueService.RemoveFromQueue(JsonConvert.SerializeObject(invitation), InvitationQueueName);
-            Console.WriteLine($"removed item {JsonConvert.SerializeObject(invitation)}");
+            Console.WriteLine($"removing item {JsonConvert.SerializeObject(result)} ...");
+            queueService.RemoveFromQueue(JsonConvert.SerializeObject(result), ResultQueueName);
+            Console.WriteLine($"removed item {JsonConvert.SerializeObject(result)}");
         }
         
         private async Task RestABit()

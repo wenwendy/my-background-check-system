@@ -8,7 +8,7 @@ namespace MyBackgroundCheckService.Processor.Senders
     {
         public async Task<bool> Send(object transformedInvitation)
         {
-            const string uri = "http://localhost:xxxx/monolithapi/result";
+            const string uri = "http://localhost:26970/monolithapi/result";
 
             var client = new HttpClient
             {

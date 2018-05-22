@@ -7,12 +7,32 @@ namespace Monolith.BackgroundCheck
     {
         public static void Main(string[] args)
         {
+            GetResults();
+            Console.ReadKey();
+            
             var invitation = GetInvitation();
 
             Console.WriteLine("posting an invitation ...");
             var receipt = SendInvitation(invitation);
 
             Console.WriteLine(receipt);
+        }
+
+        private static void GetResults()
+        {
+            const string uri = "http://localhost:26970/monolithapi/result";
+            
+            var client = new HttpClient
+            {
+                BaseAddress = new Uri(uri)
+            };
+
+            var response = client.GetAsync("").Result;
+            response.EnsureSuccessStatusCode();
+            
+            var content = response.Content.ReadAsStringAsync();
+            
+            Console.WriteLine(content.Result);
         }
 
 

@@ -6,23 +6,25 @@ using Newtonsoft.Json;
 
 namespace Monolith.Api.Controllers
 {
-    [Route("api/[controller]")]
+    [Route("monolithapi/[controller]")]
     public class ResultController : Controller
     {
-        private List<ResultDto> _results = new List<ResultDto>();
+        private static List<ResultDto> _results = new List<ResultDto>();
 
         [HttpGet]
-        public IEnumerable<ResultDto> Get()
+        public IActionResult Get()
         {
-            return _results;
+            return Ok(JsonConvert.SerializeObject(_results));
         }
 
         
         [HttpPost]
-        public void Post([FromBody] ResultDto result)
+        public IActionResult Post([FromBody] ResultDto result)
         {
             Console.WriteLine($"1_Monolith received result: {JsonConvert.SerializeObject(result)}");
             _results.Add(result);
+
+            return Ok();
         }
 
     }
