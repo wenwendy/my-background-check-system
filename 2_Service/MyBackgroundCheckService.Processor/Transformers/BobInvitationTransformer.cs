@@ -6,7 +6,7 @@ namespace MyBackgroundCheckService.Processor.Transformers
     {
         public object Transform(InvitationDto invitation)
         {
-            return invitation;
+            return new { Id = invitation.Id };
         }
 
     }
