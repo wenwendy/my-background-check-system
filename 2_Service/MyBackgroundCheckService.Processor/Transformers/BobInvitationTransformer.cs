@@ -2,11 +2,12 @@
 
 namespace MyBackgroundCheckService.Processor.Transformers
 {
-    public class BobTransformer : ITransformer
+    public class BobInvitationTransformer : IInvitationTransformer
     {
         public object Transform(InvitationDto invitation)
         {
             return invitation;
         }
+
     }
 }

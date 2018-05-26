@@ -2,7 +2,7 @@
 
 namespace MyBackgroundCheckService.Processor.Transformers
 {
-    public interface ITransformer
+    public interface IInvitationTransformer
     {
         object Transform(InvitationDto invitation);
     }
