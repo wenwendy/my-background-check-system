@@ -20,7 +20,7 @@ namespace MyBackgroundCheckService.Api.Controllers
         [HttpPost]
         public IActionResult Add([FromBody] ResultDto result)
         {
-            Console.WriteLine($"received result: {JsonConvert.SerializeObject(result)}");
+            Console.WriteLine($"2_Service: Received result from 3_Provider {JsonConvert.SerializeObject(result)}");
         
             _queueService.AddToQueue(ResultQueueName, JsonConvert.SerializeObject(result));
             

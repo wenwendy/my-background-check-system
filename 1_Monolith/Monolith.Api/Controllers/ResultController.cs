@@ -21,7 +21,7 @@ namespace Monolith.Api.Controllers
         [HttpPost]
         public IActionResult Post([FromBody] ResultDto result)
         {
-            Console.WriteLine($"1_Monolith received result: {JsonConvert.SerializeObject(result)}");
+            Console.WriteLine($"1_Monolith: Received result from 2_Service {JsonConvert.SerializeObject(result)}");
             _results.Add(result);
 
             return Ok();

@@ -1,5 +1,8 @@
 ﻿using System;
+using System.IO;
 using System.Net.Http;
+using Newtonsoft.Json;
+using Newtonsoft.Json.Linq;
 
 namespace Monolith.BackgroundCheck
 {
@@ -7,15 +10,34 @@ namespace Monolith.BackgroundCheck
     {
         public static void Main(string[] args)
         {
-            GetResults();
-            Console.ReadKey();
+            PrintHelp();
             
-            var invitation = GetInvitation();
+            do
+            {
+                switch (Console.ReadLine())
+                {
+                    case "1":
+                        GetResults();
+                        PrintHelp();
+                        break;
 
-            Console.WriteLine("posting an invitation ...");
-            var receipt = SendInvitation(invitation);
+                    case "2":
+                        var invitation = GetInvitation();
 
-            Console.WriteLine(receipt);
+                        Console.WriteLine("1_Monolith: Sending an invitation to 2_Service ...");
+                        var receipt = SendInvitation(invitation);
+
+                        Console.WriteLine($"1_Monolith: Received response from 2_Service: {receipt}");
+                        PrintHelp();
+                        break;
+                }
+            } while (true);
+
+        }
+
+        private static void PrintHelp()
+        {
+            Console.WriteLine("1. Print all results | 2. Invite");
         }
 
         private static void GetResults()
@@ -36,16 +58,24 @@ namespace Monolith.BackgroundCheck
         }
 
 
-        private static object GetInvitation()
+        private static JObject GetInvitation()
         {
-            return new
+            try
             {
-                id = 123,
-                provider = "bob"
-            };
+                using (var r = new StreamReader(@"monolith-invitation.json"))
+                {
+                    var invitation = r.ReadToEnd();
+                    
+                    return JObject.Parse(invitation);
+                }   
+            }
+            catch(FileNotFoundException)
+            {
+                return new JObject();
+            }
         }
 
-        private static string SendInvitation(object invitation)
+        private static string SendInvitation(JObject invitation)
         {
             const string uri = "http://localhost:4777/api/invitation";
 

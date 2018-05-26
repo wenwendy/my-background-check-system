@@ -47,27 +47,27 @@ namespace MyBackgroundCheckService.Processor
         {
             InvitationDto invitation = null;
             
-            Console.WriteLine("getting item from queue ...");
+            //Console.WriteLine("2_Service: Getting item from invitation queue ...");
             var invitationJsonString = queueService.GetAQueueItem(InvitationQueueName);
 
             if (string.IsNullOrEmpty(invitationJsonString)) return invitation;
             
             invitation = JsonConvert.DeserializeObject<InvitationDto>(invitationJsonString);
-            Console.WriteLine($"getting from queue: {JsonConvert.SerializeObject(invitation)}");
+            Console.WriteLine($"2_Service: Found an invitation to process: {JsonConvert.SerializeObject(invitation)}");
 
             return invitation;
         }
         
         private void RemoveInvitationFromQueue(IQueueService queueService, object invitation)
         {
-            Console.WriteLine($"removing item {JsonConvert.SerializeObject(invitation)} ...");
+            //Console.WriteLine($"2_Service: removing item {JsonConvert.SerializeObject(invitation)} ...");
             queueService.RemoveFromQueue(JsonConvert.SerializeObject(invitation), InvitationQueueName);
-            Console.WriteLine($"removed item {JsonConvert.SerializeObject(invitation)}");
+            Console.WriteLine($"2_Service: Removed processed invitation {JsonConvert.SerializeObject(invitation)}");
         }
         
         private async Task RestABit()
         {
-            Console.WriteLine("sleep for 10 seconds");
+            //Console.WriteLine("sleep for 10 seconds");
             
             await Task.Delay(TimeSpan.FromSeconds(10));
         }

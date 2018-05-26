@@ -21,11 +21,10 @@ namespace MyBackgroundCheckService.Api.Controllers
         [HttpPost]
         public IActionResult Add([FromBody] InvitationDto invitation)
         {
-            Console.WriteLine($"received invitation: {invitation.Id}");
-        
+            Console.WriteLine($"2_Service: Received an invitation request {JsonConvert.SerializeObject(invitation)}");
             _queueService.AddToQueue(InvitationQueueName, JsonConvert.SerializeObject(invitation));
            
-            return Ok($"invitation: {invitation.Id} received");
+            return Ok($"Invitation: {invitation.Id} received");
         }
 
     }

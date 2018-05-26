@@ -1,5 +1,7 @@
 ﻿using System;
+using System.IO;
 using System.Net.Http;
+using Newtonsoft.Json.Linq;
 
 namespace BobBackgroundCheckProvider.Processor
 {
@@ -7,26 +9,41 @@ namespace BobBackgroundCheckProvider.Processor
     {
         static void Main(string[] args)
         {
-            var bobResult = GetBackgroundCheckResult();
-            
-            const string uri = "http://localhost:4777/api/result";
-
-            var client = new HttpClient
+            while (true)
             {
-                BaseAddress = new Uri(uri)
-            };
+                Console.WriteLine("3_Provider: Send background check result back?");
+                Console.ReadKey();
 
-            Console.WriteLine("sending background check result to requester...");
-            var result = client.PostAsJsonAsync("", bobResult).Result;
+                var bobResult = GetBackgroundCheckResult();
+
+                const string uri = "http://localhost:4777/api/result";
+
+                var client = new HttpClient
+                {
+                    BaseAddress = new Uri(uri)
+                };
+
+                Console.WriteLine("3_Provider: Sending background check result to requester...");
+                var result = client.PostAsJsonAsync("", bobResult).Result;
+                Console.WriteLine("Done!");
+            }
         }
 
-        private static object GetBackgroundCheckResult()
+        private static JObject GetBackgroundCheckResult()
         {
-            return new
+            try
             {
-                Id = 123,
-                Result = "Pass"
-            };
+                using (var r = new StreamReader(@"provider-result.json"))
+                {
+                    var invitation = r.ReadToEnd();
+                    
+                    return JObject.Parse(invitation);
+                }   
+            }
+            catch(FileNotFoundException)
+            {
+                return new JObject();
+            }
         }
     }
 }

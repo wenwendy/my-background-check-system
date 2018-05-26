@@ -10,7 +10,7 @@ namespace BobBackgroundCheckProvider.Api.Controllers
         [HttpPost]
         public IActionResult Post([FromBody]BobInvitationDto invitation)
         {
-            Console.WriteLine($"Bob the provider received invitation: {JsonConvert.SerializeObject(invitation)}");
+            Console.WriteLine($"3_Provider: Received invitation: {JsonConvert.SerializeObject(invitation)}");
             
             return Ok();
         }

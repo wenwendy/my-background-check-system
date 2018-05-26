@@ -47,27 +47,27 @@ namespace MyBackgroundCheckService.Processor
         {
             ResultDto result = null;
             
-            Console.WriteLine("getting item from queue ...");
+            //Console.WriteLine("getting item from queue ...");
             var resultJsonString = queueService.GetAQueueItem(ResultQueueName);
 
             if (string.IsNullOrEmpty(resultJsonString)) return result;
             
             result = JsonConvert.DeserializeObject<ResultDto>(resultJsonString);
-            Console.WriteLine($"getting from queue: {JsonConvert.SerializeObject(result)}");
+            Console.WriteLine($"2_Service: Found a result to process: {JsonConvert.SerializeObject(result)}");
 
             return result;
         }
         
         private void RemoveResultFromQueue(IQueueService queueService, object result)
         {
-            Console.WriteLine($"removing item {JsonConvert.SerializeObject(result)} ...");
+            //Console.WriteLine($"removing item {JsonConvert.SerializeObject(result)} ...");
             queueService.RemoveFromQueue(JsonConvert.SerializeObject(result), ResultQueueName);
-            Console.WriteLine($"removed item {JsonConvert.SerializeObject(result)}");
+            Console.WriteLine($"2_Service: Removed processed result {JsonConvert.SerializeObject(result)}");
         }
         
         private async Task RestABit()
         {
-            Console.WriteLine("sleep for 10 seconds");
+            //Console.WriteLine("sleep for 10 seconds");
             
             await Task.Delay(TimeSpan.FromSeconds(10));
         }
