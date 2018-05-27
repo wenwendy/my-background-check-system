@@ -1,4 +1,6 @@
-﻿dotnet build
+﻿## get it working
+
+dotnet build
 
 dotnet run --project=1_Monolith/Monolith.Api/
 dotnet run --project=2_Service/MyBackgroundCheckService.Api/
