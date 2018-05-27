@@ -2,6 +2,9 @@
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 2012
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "1_Monolith", "1_Monolith", "{936D22F2-C90E-48B9-A209-A04A63CF16D9}"
+	ProjectSection(SolutionItems) = preProject
+		1_Monolith\Readme.md = 1_Monolith\Readme.md
+	EndProjectSection
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "2_Service", "2_Service", "{36CE2D65-BA35-474D-ACC0-61055F02955D}"
 	ProjectSection(SolutionItems) = preProject
@@ -31,6 +34,17 @@ EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Monolith.BackgroundCheck", "1_Monolith\Monolith.BackgroundCheck\Monolith.BackgroundCheck.csproj", "{19F5DF6B-ED8B-457E-9AAC-710EF60023FF}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Monolith.Api", "1_Monolith\Monolith.Api\Monolith.Api.csproj", "{2B4CA900-5C23-4B7D-A8BC-C0C8C4BE1883}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Document", "Document", "{6A8E19C9-45B9-4617-B61D-1061D02A73D0}"
+	ProjectSection(SolutionItems) = preProject
+		Document\goal1.md = Document\goal1.md
+		Document\goal1.png = Document\goal1.png
+	EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{994A6C16-2E0C-4F5A-B9D8-F4C413A41632}"
+	ProjectSection(SolutionItems) = preProject
+		Readme.md = Readme.md
+	EndProjectSection
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
