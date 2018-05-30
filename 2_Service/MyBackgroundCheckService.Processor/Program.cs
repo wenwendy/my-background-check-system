@@ -1,4 +1,4 @@
-﻿using System.Threading;
+﻿using System;
 using System.Threading.Tasks;
 
 namespace MyBackgroundCheckService.Processor
@@ -15,12 +15,14 @@ namespace MyBackgroundCheckService.Processor
 
         private static async Task ProcessInvitation()
         {
+            Console.WriteLine("Invitation processor started. Awaiting ...");
             var invitationProcessor = new InvitationProcessor();
             await invitationProcessor.Process();
         }
         
         private static async Task ProcessResult()
         {
+            Console.WriteLine("Result processor started. Awaiting ...");
             var resultProcessor = new ResultProcessor();
             await resultProcessor.Process();
         }

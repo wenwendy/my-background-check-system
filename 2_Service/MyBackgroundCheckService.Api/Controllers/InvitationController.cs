@@ -2,6 +2,7 @@
 using Microsoft.AspNetCore.Mvc;
 using MyBackgroundCheckService.Api.DTOs;
 using Newtonsoft.Json;
+using Newtonsoft.Json.Linq;
 using QueueService;
 
 namespace MyBackgroundCheckService.Api.Controllers
@@ -24,7 +25,7 @@ namespace MyBackgroundCheckService.Api.Controllers
             Console.WriteLine($"2_Service: Received an invitation request {JsonConvert.SerializeObject(invitation)}");
             _queueService.AddToQueue(InvitationQueueName, JsonConvert.SerializeObject(invitation));
            
-            return Ok($"Invitation: {invitation.Id} received");
+            return Ok($"Invitation: {JsonConvert.SerializeObject(invitation)} received");
         }
 
     }

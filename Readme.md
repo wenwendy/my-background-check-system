@@ -23,7 +23,8 @@ dotnet build
 #### Run
 ```
 dotnet run --project=1_Monolith/Monolith.Api/
-dotnet run --project=2_Service/MyBackgroundCheckService.Api/
+cd 2_Service\MyBackgroundCheckService.Api
+dotnet run
 dotnet run --project=3_Provider/BobBackgroundCheckProvider.Api/
 cd 2_Service/MyBackgroundCheckService.Processor
 dotnet bin/Debug/netcoreapp2.0/MyBackgroundCheckService.Processor.dll
