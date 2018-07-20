@@ -1,6 +1,8 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio 2012
+# Visual Studio 15
+VisualStudioVersion = 15.0.27703.2042
+MinimumVisualStudioVersion = 10.0.40219.1
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "1_Monolith", "1_Monolith", "{936D22F2-C90E-48B9-A209-A04A63CF16D9}"
 	ProjectSection(SolutionItems) = preProject
 		1_Monolith\Readme.md = 1_Monolith\Readme.md
@@ -11,34 +13,13 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "2_Service", "2_Service", "{
 		2_Service\Readme.md = 2_Service\Readme.md
 	EndProjectSection
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MyBackgroundCheckService.Api", "2_Service\MyBackgroundCheckService.Api\MyBackgroundCheckService.Api.csproj", "{75522EE2-20BF-4855-B271-252FB98AC9D1}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MyBackgroundCheckService.Api", "2_Service\MyBackgroundCheckService.Api\MyBackgroundCheckService.Api.csproj", "{75522EE2-20BF-4855-B271-252FB98AC9D1}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MyBackgroundCheckService.Processor", "2_Service\MyBackgroundCheckService.Processor\MyBackgroundCheckService.Processor.csproj", "{85733763-860B-450F-A6A0-09D19AD88E55}"
-EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "3_Provider", "3_Provider", "{80E91BCF-EEC4-4D58-8186-BB77D669AF60}"
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BobBackgroundCheckProvider.Api", "3_Provider\BobBackgroundCheckProvider.Api\BobBackgroundCheckProvider.Api.csproj", "{87AFB50A-3705-417B-A94D-5AD53D66A66C}"
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BobBackgroundCheckProvider.Processor", "3_Provider\BobBackgroundCheckProvider.Processor\BobBackgroundCheckProvider.Processor.csproj", "{F43FA79C-1B69-40C4-BC06-85949CB7DF24}"
-EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "SharedServices", "SharedServices", "{C5F73890-CBE1-4C76-8165-400BA56D4B4A}"
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "QueueService", "SharedServices\QueueService\QueueService.csproj", "{90503E8C-7E06-452C-800A-9C724AA9ED53}"
-EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Queues", "Queues", "{233BEA0B-FC12-4094-AAA3-3CB47FB92838}"
-	ProjectSection(SolutionItems) = preProject
-		2_Service\Queues\invitation.json = 2_Service\Queues\invitation.json
-		2_Service\Queues\result.json = 2_Service\Queues\result.json
-	EndProjectSection
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Monolith.BackgroundCheck", "1_Monolith\Monolith.BackgroundCheck\Monolith.BackgroundCheck.csproj", "{19F5DF6B-ED8B-457E-9AAC-710EF60023FF}"
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Monolith.Api", "1_Monolith\Monolith.Api\Monolith.Api.csproj", "{2B4CA900-5C23-4B7D-A8BC-C0C8C4BE1883}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Monolith.BackgroundCheck", "1_Monolith\Monolith.BackgroundCheck\Monolith.BackgroundCheck.csproj", "{19F5DF6B-ED8B-457E-9AAC-710EF60023FF}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Document", "Document", "{6A8E19C9-45B9-4617-B61D-1061D02A73D0}"
 	ProjectSection(SolutionItems) = preProject
-		Document\goal1.md = Document\goal1.md
-		Document\goal1.png = Document\goal1.png
+		Document\goal2.md = Document\goal2.md
 	EndProjectSection
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{994A6C16-2E0C-4F5A-B9D8-F4C413A41632}"
@@ -46,49 +27,43 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution 
 		Readme.md = Readme.md
 	EndProjectSection
 EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MyBackgroundCheckService.Library", "2_Service\MyBackgroundCheckService.Library\MyBackgroundCheckService.Library.csproj", "{C41A068B-D6E0-43D1-96A5-A4CDB212762A}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MyBackgroundCheckService.StatusUpdator", "2_Service\MyBackgroundCheckService.StatusUpdator\MyBackgroundCheckService.StatusUpdator.csproj", "{A1E0574E-56E4-4602-9B77-10990531EA92}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
 		Release|Any CPU = Release|Any CPU
-	EndGlobalSection
-	GlobalSection(NestedProjects) = preSolution
-		{75522EE2-20BF-4855-B271-252FB98AC9D1} = {36CE2D65-BA35-474D-ACC0-61055F02955D}
-		{85733763-860B-450F-A6A0-09D19AD88E55} = {36CE2D65-BA35-474D-ACC0-61055F02955D}
-		{87AFB50A-3705-417B-A94D-5AD53D66A66C} = {80E91BCF-EEC4-4D58-8186-BB77D669AF60}
-		{F43FA79C-1B69-40C4-BC06-85949CB7DF24} = {80E91BCF-EEC4-4D58-8186-BB77D669AF60}
-		{90503E8C-7E06-452C-800A-9C724AA9ED53} = {C5F73890-CBE1-4C76-8165-400BA56D4B4A}
-		{233BEA0B-FC12-4094-AAA3-3CB47FB92838} = {36CE2D65-BA35-474D-ACC0-61055F02955D}
-		{19F5DF6B-ED8B-457E-9AAC-710EF60023FF} = {936D22F2-C90E-48B9-A209-A04A63CF16D9}
-		{2B4CA900-5C23-4B7D-A8BC-C0C8C4BE1883} = {936D22F2-C90E-48B9-A209-A04A63CF16D9}
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
 		{75522EE2-20BF-4855-B271-252FB98AC9D1}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{75522EE2-20BF-4855-B271-252FB98AC9D1}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{75522EE2-20BF-4855-B271-252FB98AC9D1}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{75522EE2-20BF-4855-B271-252FB98AC9D1}.Release|Any CPU.Build.0 = Release|Any CPU
-		{85733763-860B-450F-A6A0-09D19AD88E55}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{85733763-860B-450F-A6A0-09D19AD88E55}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{85733763-860B-450F-A6A0-09D19AD88E55}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{85733763-860B-450F-A6A0-09D19AD88E55}.Release|Any CPU.Build.0 = Release|Any CPU
-		{87AFB50A-3705-417B-A94D-5AD53D66A66C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{87AFB50A-3705-417B-A94D-5AD53D66A66C}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{87AFB50A-3705-417B-A94D-5AD53D66A66C}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{87AFB50A-3705-417B-A94D-5AD53D66A66C}.Release|Any CPU.Build.0 = Release|Any CPU
-		{F43FA79C-1B69-40C4-BC06-85949CB7DF24}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{F43FA79C-1B69-40C4-BC06-85949CB7DF24}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{F43FA79C-1B69-40C4-BC06-85949CB7DF24}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{F43FA79C-1B69-40C4-BC06-85949CB7DF24}.Release|Any CPU.Build.0 = Release|Any CPU
-		{90503E8C-7E06-452C-800A-9C724AA9ED53}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{90503E8C-7E06-452C-800A-9C724AA9ED53}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{90503E8C-7E06-452C-800A-9C724AA9ED53}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{90503E8C-7E06-452C-800A-9C724AA9ED53}.Release|Any CPU.Build.0 = Release|Any CPU
 		{19F5DF6B-ED8B-457E-9AAC-710EF60023FF}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{19F5DF6B-ED8B-457E-9AAC-710EF60023FF}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{19F5DF6B-ED8B-457E-9AAC-710EF60023FF}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{19F5DF6B-ED8B-457E-9AAC-710EF60023FF}.Release|Any CPU.Build.0 = Release|Any CPU
-		{2B4CA900-5C23-4B7D-A8BC-C0C8C4BE1883}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{2B4CA900-5C23-4B7D-A8BC-C0C8C4BE1883}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{2B4CA900-5C23-4B7D-A8BC-C0C8C4BE1883}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{2B4CA900-5C23-4B7D-A8BC-C0C8C4BE1883}.Release|Any CPU.Build.0 = Release|Any CPU
+		{C41A068B-D6E0-43D1-96A5-A4CDB212762A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C41A068B-D6E0-43D1-96A5-A4CDB212762A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C41A068B-D6E0-43D1-96A5-A4CDB212762A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C41A068B-D6E0-43D1-96A5-A4CDB212762A}.Release|Any CPU.Build.0 = Release|Any CPU
+		{A1E0574E-56E4-4602-9B77-10990531EA92}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A1E0574E-56E4-4602-9B77-10990531EA92}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A1E0574E-56E4-4602-9B77-10990531EA92}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A1E0574E-56E4-4602-9B77-10990531EA92}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{75522EE2-20BF-4855-B271-252FB98AC9D1} = {36CE2D65-BA35-474D-ACC0-61055F02955D}
+		{19F5DF6B-ED8B-457E-9AAC-710EF60023FF} = {936D22F2-C90E-48B9-A209-A04A63CF16D9}
+		{C41A068B-D6E0-43D1-96A5-A4CDB212762A} = {36CE2D65-BA35-474D-ACC0-61055F02955D}
+		{A1E0574E-56E4-4602-9B77-10990531EA92} = {36CE2D65-BA35-474D-ACC0-61055F02955D}
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {2DD9EEC0-1E46-4687-9ECF-C9A4D59424F1}
 	EndGlobalSection
 EndGlobal

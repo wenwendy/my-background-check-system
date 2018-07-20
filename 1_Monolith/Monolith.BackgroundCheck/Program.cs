@@ -1,7 +1,6 @@
 ﻿using System;
 using System.IO;
 using System.Net.Http;
-using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 
 namespace Monolith.BackgroundCheck
