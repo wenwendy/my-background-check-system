@@ -20,14 +20,10 @@ From root directory:
 dotnet build
 ```
 
-#### Run
+#### Run BackgroundCheck Service API
 ```
-dotnet run --project=1_Monolith/Monolith.Api/
 cd 2_Service\MyBackgroundCheckService.Api
 dotnet run
-dotnet run --project=3_Provider/BobBackgroundCheckProvider.Api/
-cd 2_Service/MyBackgroundCheckService.Processor
-dotnet bin/Debug/netcoreapp2.0/MyBackgroundCheckService.Processor.dll
 ```
 
 #### Initiate a background check invitation
@@ -37,10 +33,9 @@ cd 1_Monolith/Monolith.BackgroundCheck
 dotnet bin/Debug/netcoreapp2.0/Monolith.BackgroundCheck.dll
 ```
 
-#### Send a background check result
-- Update `provider-result.json`
+#### Update a background check status
 ```
-cd 3_Provider/BobBackgroundCheckProvider.Processor
-dotnet bin/Debug/netcoreapp2.0/BobBackgroundCheckProvider.Processor.dll
+cd 2_Service/MyBackgroundCheckService.StatusUpdator
+dotnet bin/Debug/netcoreapp2.1/MyBackgroundCheckService.StatusUpdator.dll
 ```
 

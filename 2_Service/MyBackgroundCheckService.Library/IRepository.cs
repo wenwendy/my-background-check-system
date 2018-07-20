@@ -2,7 +2,7 @@
 {
     public interface IRepository
     {
-        void Save(Invitation invitation);
+        void UpSert(Invitation invitation);
         Invitation Get(int id);
     }
 }

@@ -21,12 +21,12 @@ namespace MyBackgroundCheckService.Api.Controllers
         {
             Console.WriteLine($"2_Service: Received an invitation request {JsonConvert.SerializeObject(invitation)}");
 
-            _repository.Save(invitation);
+            _repository.UpSert(invitation);
            
             return Ok($"Invitation: {JsonConvert.SerializeObject(invitation)} received");
         }
 
-        [HttpGet]
+        [HttpGet("{id}")]
         public IActionResult Get(int id)
         {
             Console.WriteLine($"Check status for invitation {id}");

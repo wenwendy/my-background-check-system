@@ -16,7 +16,9 @@ namespace Monolith.BackgroundCheck
                 switch (Console.ReadLine())
                 {
                     case "1":
-                        GetResults();
+                        Console.WriteLine("Which invitation do you want to check (enter id)?");
+                        var status = CheckStatus(int.Parse(Console.ReadLine()));
+                        Console.WriteLine(status);
                         PrintHelp();
                         break;
 
@@ -36,24 +38,24 @@ namespace Monolith.BackgroundCheck
 
         private static void PrintHelp()
         {
-            Console.WriteLine("1. Print all results | 2. Invite");
+            Console.WriteLine("1. GET status of an existing invitation | 2. POST an invitation");
         }
 
-        private static void GetResults()
+        private static string CheckStatus(int id)
         {
-            const string uri = "http://localhost:26970/monolithapi/result";
+            var uri = $"http://localhost:4777/api/invitation/{id}";
             
             var client = new HttpClient
             {
                 BaseAddress = new Uri(uri)
             };
 
-            var response = client.GetAsync("").Result;
+            var response = client.GetAsync(uri).Result;
             response.EnsureSuccessStatusCode();
             
             var content = response.Content.ReadAsStringAsync();
             
-            Console.WriteLine(content.Result);
+            return content.Result;
         }
 
 

@@ -16,7 +16,7 @@ namespace MyBackgroundCheckService.StatusUpdator
             var statusToBe = command.Split('|')[1];
             var invitation = repository.Get(id);
             invitation.Status = statusToBe;
-            repository.Save(invitation);
+            repository.UpSert(invitation);
 
         }
     }
