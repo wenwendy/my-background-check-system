@@ -8,6 +8,7 @@
 - One background check provider only at any time.
 - Ignore provider implementation.
 - POST request to API is low in load and will be communicated and actioned successfully.
+- One requester only
 
 
 
