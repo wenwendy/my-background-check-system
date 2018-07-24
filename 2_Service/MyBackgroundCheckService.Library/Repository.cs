@@ -1,46 +1,34 @@
-﻿using System.Collections.Generic;
-using System.Linq;
+﻿using System.Linq;
 using Dapper;
 using Npgsql;
 using System;
+using System.Collections.Generic;
 using Newtonsoft.Json;
 
 namespace MyBackgroundCheckService.Library
 {
     public class Repository : IRepository
     {
-        private static List<Invitation> _invitations = new List<Invitation>();
         private const string _connectionString = "Host=localhost;Port=5432;Username=postgres;Password=abc123;Database=background_check;";
 
         public void UpSert(Invitation invitation)
         {
             //save to postgres db
             invitation.Status = invitation.Status ?? "New";
-            _invitations.Add(invitation);
-            /*
-            const string commandStringSelect = "SELECT status FROM invitation;";
-            var commandString = @"CREATE TABLE invitationww (
-      invitation integer,
-      applicant_profile json NOT NULL,
-      status varchar(20),
-      PRIMARY KEY (invitation)
-    );";*/
+
             var profile = JsonConvert.SerializeObject(invitation.ApplicantProfile);
-            var commandString = $@"INSERT INTO public.invitation (invitation, applicant_profile)
-                    VALUES ({invitation.Id}, '{profile}')
+            var commandString = $@"INSERT INTO public.invitation (invitation, applicant_profile, status)
+                    VALUES ({invitation.Id}, '{profile}', '{invitation.Status}')
                     ON CONFLICT(invitation)
                     DO
                       UPDATE
-                        SET applicant_profile = EXCLUDED.applicant_profile;";
+                        SET applicant_profile = EXCLUDED.applicant_profile, status = EXCLUDED.status;";
 
             try
             {
                 using (var connection = new NpgsqlConnection(_connectionString))
                 {
                     connection.Open();
-                    //var ww = connection.Execute(commandString);
-
-                    //var ww2 = connection.Query<string>(commandStringSelect).ToList();
 
                     connection.Execute(commandString);
                 }
@@ -53,8 +41,27 @@ namespace MyBackgroundCheckService.Library
 
         public Invitation Get(int id)
         {
-            //read from postgres db
-            return _invitations.FirstOrDefault(i => i.Id == id);
+            List<InvitationTemp> invitations = null;
+            var commandString = $"SELECT invitation AS \"Id\", applicant_profile AS \"ApplicantProfile\", status AS \"Status\" FROM public.invitation WHERE invitation = {id};";
+            try
+            {
+                using (var connection = new NpgsqlConnection(_connectionString))
+                {
+                    connection.Open();
+                    invitations = connection.Query<InvitationTemp>(commandString).ToList();
+                }
+            }
+            catch(Exception e)
+            {
+                
+            }
+            var temp = invitations.FirstOrDefault(i => i.Id == id);
+            return new Invitation
+            {
+                Id = temp.Id,
+                ApplicantProfile = JsonConvert.DeserializeObject<ApplicantProfile>(temp.ApplicantProfile),
+                Status = temp.Status
+            };
         }
     }
 }
