@@ -9,7 +9,7 @@ namespace MyBackgroundCheckService.Library
 {
     public class Repository : IRepository
     {
-        private const string _connectionString = "Host=localhost;Port=5432;Username=postgres;Password=abc123;Database=background_check;";
+        private const string _connectionString = "Host=localhost;Port=2345;Username=postgres;Password=abc123;Database=background_check;";
 
         public void UpSert(Invitation invitation)
         {
@@ -35,7 +35,7 @@ namespace MyBackgroundCheckService.Library
             }
             catch(Exception e)
             {
-                
+                Console.WriteLine(e.Message);
             }
         }
 
@@ -53,7 +53,7 @@ namespace MyBackgroundCheckService.Library
             }
             catch(Exception e)
             {
-                
+                Console.WriteLine(e.Message);
             }
             var temp = invitations.FirstOrDefault(i => i.Id == id);
             return new Invitation

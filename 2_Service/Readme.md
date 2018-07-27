@@ -1,24 +1,18 @@
 ### My Background Check Service
 - Api
-  - Receive an invitation
-  - Add to queue
-- Processor
-  - Pick up an invitation from queue
-  - Transform
-  - Send to Provider
-  - Receive result from Provider
-  - Transform
-  - Send to Monolith
-  
+  - Create a background check invitation
+  - Query the status of an existing invitation
+- StatusUpdater
+  - Simulate background check workflow by updating an invitation status
 - Database setup
-  - Run PostgreSQL `docker run -p 5432:5432 --name wwpostgres -e POSTGRES_PASSWORD=abc123 -d postgres`
+  - Run PostgreSQL `docker run -p 2345:5432 --name wwpostgres -e POSTGRES_PASSWORD=abc123 -d postgres`
   - Create DB and Tables
-  `docker run -it --rm --link wwpostgres:postgres postgres psql -h postgres -U postgres`
-
+    - `docker run -it --rm --link wwpostgres:postgres postgres psql -h postgres -U postgres`
+    - Or, use pgAdmin UI
 - psql cheatsheet
   - List all exisitng DBs `\l`
   - Create a DB `CREATE DATABASE background_check;`
-  - Switch to a DB `\c [database_name]];`
+  - Switch to a DB `\c [database_name];`
   - List all existing tables `\dt`
   - Create a table 
   ```

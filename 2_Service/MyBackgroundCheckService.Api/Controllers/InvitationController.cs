@@ -31,9 +31,9 @@ namespace MyBackgroundCheckService.Api.Controllers
         {
             Console.WriteLine($"Check status for invitation {id}");
 
-            var status = _repository.Get(id).Status;
+            var invitation = _repository.Get(id);
 
-            return Ok($"Status for invitation {id} is {status}");
+            return Ok(invitation);
         }
 
     }
