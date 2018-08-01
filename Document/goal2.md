@@ -12,4 +12,16 @@
 - One requester only and Id provided by requester is unique.
 
 
-
+### Takeaways:
+- Returning DB auto-generated primary key in API is not a good design
+  - It indicates a dependency between DB and API
+  - DB auto primary key can be used purely for performance purpose (e.g. ensuring partitions are next to each other and cheap to find).
+  - DB hits == $$
+  - An option: API generates a uniqueid  before persisting it into DB (not necessarily as PK)
+- PUT design
+  - Payload should update exactly as is in DB. A following GET should return exactly the same payload used in PUT.
+  - e.g. to update status of an invitation: PUT `api/invitation/123/status`
+- Wrap DB transaction around Data Access Layer 
+  - This can reduce the chance of multiple DB threads hanging around under high load (e.g. APIV2).
+  - This does not address the network timeout issue (e.g. after 30") on API end point.
+  - Caller retry can mitigate network timeout to some extent
