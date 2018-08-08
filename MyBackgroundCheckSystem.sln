@@ -19,7 +19,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Monolith.BackgroundCheck", 
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Document", "Document", "{6A8E19C9-45B9-4617-B61D-1061D02A73D0}"
 	ProjectSection(SolutionItems) = preProject
-		Document\goal2.md = Document\goal2.md
+		Document\goal3.md = Document\goal3.md
 	EndProjectSection
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{994A6C16-2E0C-4F5A-B9D8-F4C413A41632}"

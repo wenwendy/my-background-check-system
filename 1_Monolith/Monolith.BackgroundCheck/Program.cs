@@ -63,7 +63,7 @@ namespace Monolith.BackgroundCheck
         {
             try
             {
-                using (var r = new StreamReader(@"monolith-invitation.json"))
+                using (var r = new StreamReader(@"../../../monolith-invitation.json"))
                 {
                     var invitation = r.ReadToEnd();
                     
