@@ -10,4 +10,19 @@
    - fail (e.g. 4xx) no point to retry
 - Provider calls Service when update is available 
   - successful scenario
+
+### Flow
+- https://www.draw.io/#G1UZOk5b62lJsjzC2ej9Ne2VS7pkonkkrg
+  
+### Takeaways
+- Background check UI for data collection
+  - This is dependent on provider
+  - May not belong to the domain
+- Provider flows
+  - May require limited info only. e.g. email, and respond with a link
+  - May require all the personal info to perform a check
+- Flat file
+  - File locking issue will likely to appear after certain load threshold. (How much can it handle?)
+  - Alternatives are file > folder / message > file (What's the limitations?)
+  - What if node where the queue sits on goes down?
   

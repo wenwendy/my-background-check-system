@@ -1,8 +1,9 @@
 ﻿### About
-A hypothetical background check service for practise purpose
+- A hypothetical background check service for practise purpose
+- Domain responsibility is to maintain life cycles of background checks.
 
 ### Domain Ideas
-- An imaginary background check domain
+- An imaginary background check domain.
 - Create a background check invitation.
 - When background check result pass, automatically move applicant to the next step of recruitment process.
 - If a particular type of background check result fails, notify authority (?)
