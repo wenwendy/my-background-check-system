@@ -8,6 +8,8 @@ namespace MyBackgroundCheckService.Library
     {
         private const string QueuePath = @"../Queues";
 
+        // try x times before throwing an exception
+        // what to do upon exception?
         public void AddToQueue(string queueName, string content)
         {
             var queueItems = QueueItems(queueName);

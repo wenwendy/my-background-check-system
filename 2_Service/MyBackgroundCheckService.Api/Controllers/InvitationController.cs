@@ -22,10 +22,13 @@ namespace MyBackgroundCheckService.Api.Controllers
         {
             Console.WriteLine($"2_Service: Received an invitation request {JsonConvert.SerializeObject(invitation)}");
 
-            // try x times before pushing to DLQ
-            // what if DLQ pushing also failed?
+            // try x times before throwing an exception
+            // what to do upon exception?
             _queueService.AddToQueue("invitation", JsonConvert.SerializeObject(invitation));
             _repository.UpSert(invitation);
+
+            // Send to provider
+
            
             return Ok($"Invitation: {JsonConvert.SerializeObject(invitation)} received");
         }

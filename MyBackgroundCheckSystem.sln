@@ -31,6 +31,17 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MyBackgroundCheckService.Li
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MyBackgroundCheckService.StatusUpdator", "2_Service\MyBackgroundCheckService.StatusUpdator\MyBackgroundCheckService.StatusUpdator.csproj", "{A1E0574E-56E4-4602-9B77-10990531EA92}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Queues", "Queues", "{19323195-54A9-481C-A7AE-1914CEE70782}"
+	ProjectSection(SolutionItems) = preProject
+		2_Service\Queues\invitation.json = 2_Service\Queues\invitation.json
+	EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "3_Provider", "3_Provider", "{D6DECAB8-6B59-4814-9F1F-B0AE0D4ACDD5}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BackgroundCheckProvider.Api", "3_Provider\BackgroundCheckProvider.Api\BackgroundCheckProvider.Api.csproj", "{C703E7AE-75D6-4BA4-9A1A-F033161AA1F6}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BackgroundCheckProvider.Processor", "3_Provider\BackgroundCheckProvider.Processor\BackgroundCheckProvider.Processor.csproj", "{1287548E-A4F3-44ED-B420-D36AC1E3ACEE}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -53,6 +64,14 @@ Global
 		{A1E0574E-56E4-4602-9B77-10990531EA92}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{A1E0574E-56E4-4602-9B77-10990531EA92}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{A1E0574E-56E4-4602-9B77-10990531EA92}.Release|Any CPU.Build.0 = Release|Any CPU
+		{C703E7AE-75D6-4BA4-9A1A-F033161AA1F6}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C703E7AE-75D6-4BA4-9A1A-F033161AA1F6}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C703E7AE-75D6-4BA4-9A1A-F033161AA1F6}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C703E7AE-75D6-4BA4-9A1A-F033161AA1F6}.Release|Any CPU.Build.0 = Release|Any CPU
+		{1287548E-A4F3-44ED-B420-D36AC1E3ACEE}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{1287548E-A4F3-44ED-B420-D36AC1E3ACEE}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{1287548E-A4F3-44ED-B420-D36AC1E3ACEE}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{1287548E-A4F3-44ED-B420-D36AC1E3ACEE}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -62,6 +81,9 @@ Global
 		{19F5DF6B-ED8B-457E-9AAC-710EF60023FF} = {936D22F2-C90E-48B9-A209-A04A63CF16D9}
 		{C41A068B-D6E0-43D1-96A5-A4CDB212762A} = {36CE2D65-BA35-474D-ACC0-61055F02955D}
 		{A1E0574E-56E4-4602-9B77-10990531EA92} = {36CE2D65-BA35-474D-ACC0-61055F02955D}
+		{19323195-54A9-481C-A7AE-1914CEE70782} = {36CE2D65-BA35-474D-ACC0-61055F02955D}
+		{C703E7AE-75D6-4BA4-9A1A-F033161AA1F6} = {D6DECAB8-6B59-4814-9F1F-B0AE0D4ACDD5}
+		{1287548E-A4F3-44ED-B420-D36AC1E3ACEE} = {D6DECAB8-6B59-4814-9F1F-B0AE0D4ACDD5}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {2DD9EEC0-1E46-4687-9ECF-C9A4D59424F1}
