@@ -20,6 +20,6 @@ namespace BobBackgroundCheckProvider.Api.Controllers
     public class BobInvitationDto
     {
         public int Id { get; set; }
-        public string CandidateProfile { get; set; }
+        public string ApplicantProfile { get; set; }
     }
 }

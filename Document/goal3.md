@@ -11,6 +11,9 @@
 - Provider calls Service when update is available 
   - successful scenario
 
+### Assumptions
+- 3_Provider is idempotent upon receiving duplicate invitations. e.g. no duplicates will be created
+
 ### Flow
 - https://www.draw.io/#G1UZOk5b62lJsjzC2ej9Ne2VS7pkonkkrg
   
