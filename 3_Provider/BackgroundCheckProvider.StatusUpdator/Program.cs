@@ -3,7 +3,7 @@ using System.IO;
 using System.Net.Http;
 using Newtonsoft.Json.Linq;
 
-namespace BobBackgroundCheckProvider.Processor
+namespace BobBackgroundCheckProvider.StatusUpdator
 {
     class Program
     {
@@ -16,15 +16,15 @@ namespace BobBackgroundCheckProvider.Processor
 
                 var bobResult = GetBackgroundCheckResult();
 
-                const string uri = "http://localhost:4777/api/result";
+                var putEndPoint = $"http://localhost:4777/api/invitation/{bobResult["id"]}/status";
 
-                var client = new HttpClient
-                {
-                    BaseAddress = new Uri(uri)
-                };
+                // var client = new HttpClient
+                // {
+                //     BaseAddress = new Uri(uri)
+                // };
 
                 Console.WriteLine("3_Provider: Sending background check result to requester...");
-                var result = client.PostAsJsonAsync("", bobResult).Result;
+                var result = new HttpClient().PutAsJsonAsync(putEndPoint, bobResult).Result;
                 Console.WriteLine("Done!");
             }
         }
@@ -33,7 +33,7 @@ namespace BobBackgroundCheckProvider.Processor
         {
             try
             {
-                using (var r = new StreamReader(@"provider-result.json"))
+                using (var r = new StreamReader(@"invitation-status.json"))
                 {
                     var invitation = r.ReadToEnd();
                     

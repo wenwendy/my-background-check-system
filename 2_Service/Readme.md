@@ -1,9 +1,8 @@
 ### My Background Check Service
 - Api
-  - Create a background check invitation
-  - Query the status of an existing invitation
-- StatusUpdater
-  - Simulate background check workflow by updating an invitation status
+  - POST: Create a background check invitation
+  - GET: Query the status of an existing invitation
+  - PUT: Update the status of an existing invitation
 - Database setup
   - Run PostgreSQL `docker run -p 2345:5432 --name wwpostgres -e POSTGRES_PASSWORD=abc123 -d postgres`
   - Create DB and Tables

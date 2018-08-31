@@ -13,6 +13,7 @@
 
 ### Assumptions
 - 3_Provider is idempotent upon receiving duplicate invitations. e.g. no duplicates will be created
+- No payload schema transformation is required between 2_Service and 3_Provider
 
 ### Flow
 - https://www.draw.io/#G1UZOk5b62lJsjzC2ej9Ne2VS7pkonkkrg

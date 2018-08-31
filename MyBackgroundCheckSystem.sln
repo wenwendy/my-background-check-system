@@ -40,7 +40,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "3_Provider", "3_Provider", 
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BackgroundCheckProvider.Api", "3_Provider\BackgroundCheckProvider.Api\BackgroundCheckProvider.Api.csproj", "{C703E7AE-75D6-4BA4-9A1A-F033161AA1F6}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BackgroundCheckProvider.Processor", "3_Provider\BackgroundCheckProvider.Processor\BackgroundCheckProvider.Processor.csproj", "{1287548E-A4F3-44ED-B420-D36AC1E3ACEE}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BackgroundCheckProvider.StatusUpdator", "3_Provider\BackgroundCheckProvider.StatusUpdator\BackgroundCheckProvider.StatusUpdator.csproj", "{1287548E-A4F3-44ED-B420-D36AC1E3ACEE}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

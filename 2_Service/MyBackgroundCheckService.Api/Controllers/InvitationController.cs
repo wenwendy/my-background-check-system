@@ -22,8 +22,6 @@ namespace MyBackgroundCheckService.Api.Controllers
         {
             Console.WriteLine($"2_Service: Received an invitation request {JsonConvert.SerializeObject(invitation)}");
 
-            // try x times before throwing an exception
-            // what to do upon exception?
             _queueService.AddToQueue("invitation", JsonConvert.SerializeObject(invitation));
             _repository.UpSert(invitation);
 
