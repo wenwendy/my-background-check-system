@@ -27,6 +27,12 @@ cd 2_Service\MyBackgroundCheckService.Api
 dotnet run
 ```
 
+#### Run BackgroundCheck Provider API
+```
+cd 3_Provider\BackgroundCheckProvider.Api
+dotnet run
+```
+
 #### Initiate a background check invitation
 - Update `monolith-invitation.json`
 ```

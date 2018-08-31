@@ -41,5 +41,16 @@ namespace MyBackgroundCheckService.Api.Controllers
             return Ok(invitation);
         }
 
+        [HttpPut("status/{id}")]
+        public IActionResult UpdateStatus(int id, [FromBody] string status)
+        {
+            Console.WriteLine($"Received a request to update status to {status} for invitation (id={id})");
+            var invitation = _repository.Get(id);
+            invitation.Status = status;
+            _repository.UpSert(invitation);
+
+            return Ok(invitation);
+        }
+
     }
 }

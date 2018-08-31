@@ -5,6 +5,7 @@
   - PUT: Update the status of an existing invitation
 - Database setup
   - Run PostgreSQL `docker run -p 2345:5432 --name wwpostgres -e POSTGRES_PASSWORD=abc123 -d postgres`
+  - Restart PostgreSQL `docker start wwpostgres`
   - Create DB and Tables
     - `docker run -it --rm --link wwpostgres:postgres postgres psql -h postgres -U postgres`
     - Or, use pgAdmin UI
