@@ -2,6 +2,10 @@
 {
     public interface IQueueService
     {
-        void AddToQueue(string queueName, string content);
+        IQueueService Named(string queueName);
+        void Add(string queueItem);
+        string GetAQueueItem();
+        void Remove(string queueItem);
+
     }
 }

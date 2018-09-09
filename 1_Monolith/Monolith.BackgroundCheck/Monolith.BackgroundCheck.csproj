@@ -8,4 +8,12 @@
   <ItemGroup>
     <PackageReference Include="Microsoft.AspNet.WebApi.Client" Version="5.2.6" />
   </ItemGroup>
+  <ItemGroup>
+    <None Remove="monolith-invitation.json" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="monolith-invitation.json">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+  </ItemGroup>
 </Project>

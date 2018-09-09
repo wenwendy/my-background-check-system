@@ -63,7 +63,7 @@ namespace Monolith.BackgroundCheck
         {
             try
             {
-                using (var r = new StreamReader(@"../../../monolith-invitation.json"))
+                using (var r = new StreamReader(@"monolith-invitation.json"))
                 {
                     var invitation = r.ReadToEnd();
                     
@@ -80,15 +80,9 @@ namespace Monolith.BackgroundCheck
         {
             const string uri = "http://localhost:4777/api/invitation";
 
-            var client = new HttpClient
-            {
-                BaseAddress = new Uri(uri)
-            };
+            var response = new HttpClient().PostAsJsonAsync(uri, invitation).Result;
 
-            var response = client.PostAsJsonAsync("", invitation).Result;
-            var responseString = response.Content.ReadAsStringAsync().Result;
-
-            return responseString;
+            return response.StatusCode.ToString();
         }
     }
 }

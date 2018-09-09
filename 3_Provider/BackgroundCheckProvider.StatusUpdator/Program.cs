@@ -18,14 +18,9 @@ namespace BobBackgroundCheckProvider.StatusUpdator
 
                 var putEndPoint = $"http://localhost:4777/api/invitation/{bobResult["id"]}/status";
 
-                // var client = new HttpClient
-                // {
-                //     BaseAddress = new Uri(uri)
-                // };
-
-                Console.WriteLine("3_Provider: Sending background check result to requester...");
-                var result = new HttpClient().PutAsJsonAsync(putEndPoint, bobResult).Result;
-                Console.WriteLine("Done!");
+                Console.WriteLine($"3_Provider: Sending background check result to {putEndPoint} ...");
+                var result = new HttpClient().PutAsJsonAsync(putEndPoint, bobResult["status"]).Result;
+                Console.WriteLine($"Done! Result: {result}");
             }
         }
 

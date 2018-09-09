@@ -1,34 +1,63 @@
 ﻿using System.Collections.Generic;
 using System.IO;
 using Newtonsoft.Json;
+using System;
 
 namespace MyBackgroundCheckService.Library
 {
     public class LocalFileQueueService : IQueueService
     {
         private const string QueuePath = @"../Queues";
+        private string _localQueueFile;
+        private List<string> _queueItems = null;
 
-        // try x times before throwing an exception
-        // what to do upon exception?
-        public void AddToQueue(string queueName, string content)
+        public LocalFileQueueService(){}
+
+        public IQueueService Named(string queueName)
         {
-            var queueItems = QueueItems(queueName);
-            queueItems.Add(content);
+            return new LocalFileQueueService(queueName);
+        }
 
-            File.WriteAllText(LocalQueueFile(queueName), JsonConvert.SerializeObject(queueItems));
+        public void Add(string queueItem)
+        {
+            _queueItems.Add(queueItem);
+
+            // try x times before throwing an exception
+            // upon exception, feedback to initiator
+            File.WriteAllText(_localQueueFile, JsonConvert.SerializeObject(_queueItems));
+        }
+
+        public string GetAQueueItem()
+        {
+            if (_queueItems.Count > 0)
+            {
+                return _queueItems[0];
+            }
+            return string.Empty;
         }
 
 
-        private static string LocalQueueFile(string queueName)
+        public void Remove(string queueItem)
         {
-            return $@"{QueuePath}/{queueName}.json";
+            var itemToDelete = _queueItems.Find(x => x == queueItem);
+            
+            if (itemToDelete != null)
+                _queueItems.Remove(itemToDelete);
+            
+            File.WriteAllText(_localQueueFile, JsonConvert.SerializeObject(_queueItems));
         }
 
-        private List<string> QueueItems(string queueName)
+        private LocalFileQueueService(string queueName)
+        {
+            _localQueueFile = $@"{QueuePath}/{queueName}.json";
+            _queueItems = QueueItems();
+        }
+
+        private List<string> QueueItems()
         {
             try
             {
-                using (var r = new StreamReader(LocalQueueFile(queueName)))
+                using (var r = new StreamReader(_localQueueFile))
                 {
                     var json = r.ReadToEnd();
                     var queueItems = JsonConvert.DeserializeObject<List<string>>(json);

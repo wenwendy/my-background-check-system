@@ -1,40 +1,59 @@
 ﻿using System.Threading.Tasks;
 using System;
-using MyBackgroundCheckService.Processor.DTOs;
+using MyBackgroundCheckService.Library.DTOs;
+using MyBackgroundCheckService.Library.DAL;
 using MyBackgroundCheckService.Processor.Senders;
-using MyBackgroundCheckService.Processor.Transformers;
 using Newtonsoft.Json;
-using QueueService;
+using MyBackgroundCheckService.Library;
 
 namespace MyBackgroundCheckService.Processor
 {
     public class InvitationProcessor
     {
-        private readonly IInvitationTransformer _invitationTransformer;
         private readonly ISender _sender;
+        private readonly IQueueService _queueService;
+        private readonly IRepository _repository;
         const string InvitationQueueName = "invitation";
 
-        public InvitationProcessor()
+        public InvitationProcessor(ISender sender, IQueueService queueService, IRepository repository)
         {
-            _sender = new BobProviderSender();
+            _sender = sender;
+            _queueService = queueService;
+            _repository = repository;
         }
         
         public async Task Process()
         {
-            var queueService = new LocalFileQueueService();//inject this
-            
-            //send till successful
             while (true)
             {
-                var invitation = GetAnInvitationFromQueue(queueService, InvitationQueueName);//var invitation = queueService.NextItemInQueue(InvitationQueueName)
+                var invitation = GetAnInvitationFromQueue();
 
                 if (invitation != null)
                 {
-                    var received = await _sender.Send(invitation);
+                    var result = await _sender.Send(invitation);
                     
-                    if (received)
+                    switch (result)
                     {
-                        RemoveInvitationFromQueue(queueService, invitation);
+                        case SendResult.Success:
+                            _queueService.Named(InvitationQueueName).Remove(JsonConvert.SerializeObject(invitation));
+                            break;
+
+                        case SendResult.FailPermanently:
+                            Console.WriteLine("Request failed permanently.");
+                            // update status in postgresql
+                            var invitaionEntity = new InvitationEntity
+                            {
+                                Id = invitation.Id,
+                                ApplicantProfile = invitation.ApplicantProfile,
+                                Status = "InvalidRequest"
+                            };
+                            _repository.UpSert(invitaionEntity);
+                            _queueService.Named(InvitationQueueName).Remove(JsonConvert.SerializeObject(invitation));
+                            break;
+
+                        case SendResult.TryAgain:
+                            // do nothing for x times, before moving to DLQ
+                            break;
                     }
                 }
 
@@ -42,31 +61,23 @@ namespace MyBackgroundCheckService.Processor
             }
         }
         
-        private InvitationDto GetAnInvitationFromQueue(IQueueService queueService, string InvitationQueueName)
+        private InvitationDto GetAnInvitationFromQueue()
         {
             InvitationDto invitation = null;
-            
-            //Console.WriteLine("2_Service: Getting item from invitation queue ...");
-            var invitationJsonString = queueService.GetAQueueItem(InvitationQueueName);
+
+            var invitationJsonString = _queueService.Named(InvitationQueueName).GetAQueueItem();
 
             if (string.IsNullOrEmpty(invitationJsonString)) return invitation;
-            
+
             invitation = JsonConvert.DeserializeObject<InvitationDto>(invitationJsonString);
+            
             Console.WriteLine($"2_Service: Found an invitation to process: {JsonConvert.SerializeObject(invitation)}");
 
             return invitation;
         }
-        
-        private void RemoveInvitationFromQueue(IQueueService queueService, object invitation)
-        {
-            //Console.WriteLine($"2_Service: removing item {JsonConvert.SerializeObject(invitation)} ...");
-            queueService.RemoveFromQueue(JsonConvert.SerializeObject(invitation), InvitationQueueName);
-            Console.WriteLine($"2_Service: Removed processed invitation {JsonConvert.SerializeObject(invitation)}");
-        }
-        
+
         private async Task RestABit()
         {
-            //This needs to be 2, 4, 8, 16 etc.
             await Task.Delay(TimeSpan.FromSeconds(10));
         }
     }

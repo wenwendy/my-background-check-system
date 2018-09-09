@@ -29,4 +29,6 @@
   - File locking issue will likely to appear after certain load threshold. (How much can it handle?)
   - Alternatives are file > folder / message > file (What's the limitations?)
   - What if node where the queue sits on goes down?
-  
+- At what point should Service API respond initiator with 2xx?
+  - Queued successfully
+  - Added to DB sueccesfully

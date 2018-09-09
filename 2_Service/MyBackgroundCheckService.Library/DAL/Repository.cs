@@ -6,13 +6,13 @@ using System.Collections.Generic;
 using Newtonsoft.Json;
 using MyBackgroundCheckService.Library.DTOs;
 
-namespace MyBackgroundCheckService.Library
+namespace MyBackgroundCheckService.Library.DAL
 {
     public class Repository : IRepository
     {
         private const string _connectionString = "Host=localhost;Port=2345;Username=postgres;Password=abc123;Database=background_check;";
 
-        public void UpSert(Invitation invitation)
+        public void UpSert(InvitationEntity invitation)
         {
             //save to postgres db
 
@@ -39,7 +39,7 @@ namespace MyBackgroundCheckService.Library
             }
         }
 
-        public Invitation Get(int id)
+        public InvitationEntity Get(int id)
         {
             List<InvitationTemp> invitations = null;
             var commandString = $"SELECT invitation AS \"Id\", applicant_profile AS \"ApplicantProfile\", status AS \"Status\" FROM public.invitation WHERE invitation = {id};";
@@ -56,7 +56,7 @@ namespace MyBackgroundCheckService.Library
                 Console.WriteLine(e.Message);
             }
             var temp = invitations.FirstOrDefault(i => i.Id == id);
-            return new Invitation
+            return new InvitationEntity
             {
                 Id = temp.Id,
                 ApplicantProfile = JsonConvert.DeserializeObject<ApplicantProfile>(temp.ApplicantProfile),

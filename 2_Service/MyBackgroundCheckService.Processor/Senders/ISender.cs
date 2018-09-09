@@ -5,6 +5,13 @@ namespace MyBackgroundCheckService.Processor.Senders
 {
     public interface ISender// or IConnector
     {
-        Task<bool> Send(object transformedInvitation);
+        Task<SendResult> Send(object transformedInvitation);
+    }
+
+    public enum SendResult
+    {
+        Success,
+        TryAgain,
+        FailPermanently
     }
 }

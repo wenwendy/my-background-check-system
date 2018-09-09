@@ -1,4 +1,6 @@
-﻿namespace MyBackgroundCheckService.Library
+﻿using MyBackgroundCheckService.Library.DTOs;
+
+namespace MyBackgroundCheckService.Library
 {
     public interface IRepository
     {
