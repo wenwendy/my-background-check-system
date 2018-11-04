@@ -62,17 +62,41 @@ namespace MyBackgroundCheckService.Api.Controllers
         }
 
         [HttpPut("{id}/status")]
+        // potential callers: 2_Service InvitationProcessor / 3_Provider StatusUpdator
+        // assumption: when processing request from 3_Provider, failure may not result in a retry.
+        // Q: how to handle ^ ? choose whichever option more reliable?
         public IActionResult UpdateStatus(int id, [FromBody] string status)
         {
             Console.WriteLine($"Received a request to update status to {status} for invitation (id={id})");
             try
             {
+                // option 1
+                // pros:
+                //   less point of failure - DB or node
+                // cons:
+                //   
                 var invitation = _repository.Get(id);
                 invitation.Status = status;
                 _repository.UpSert(invitation);
                 Console.WriteLine("Done");
 
                 return Ok(invitation);
+
+                // option 2
+                // pros: 
+                //   when request load is high (including batch operations), DB load is spreaded avoiding DB spike
+                // cons: 
+                //   when request load is low, updated status takes slightly longer to reflect on GET.
+                //   more point of failures. in case of queue / status DB updator failure, updated status takes longer to reflect.
+                var statusUpdateRequest = new {
+                    id = id,
+                    status = status
+                };
+                _queueService
+                    .Named("statusupdate")
+                    .Add(JsonConvert.SerializeObject(statusUpdateRequest));
+
+                return Accepted(statusUpdateRequest);
             }
             catch(Exception ex)
             {

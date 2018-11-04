@@ -3,9 +3,8 @@
     public interface IQueueService
     {
         IQueueService Named(string queueName);
-        void Add(string queueItem);
+        void Add(string serializedQueueItem);
         string GetAQueueItem();
-        void Remove(string queueItem);
-
+        void Remove(string serializedQueueItem);
     }
 }
