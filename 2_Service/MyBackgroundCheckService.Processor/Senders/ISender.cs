@@ -10,8 +10,8 @@ namespace MyBackgroundCheckService.Processor.Senders
 
     public enum SendResult
     {
-        Success,
-        TryAgain,
-        FailPermanently
+        Success,//initial request successful OR following up request returned "item aready existed" 
+        TryAgain,//temp errors on Provider side
+        FailPermanently//requires request being modified. e.g. vaidation errors.
     }
 }

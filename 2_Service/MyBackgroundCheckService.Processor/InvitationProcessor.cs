@@ -12,14 +12,12 @@ namespace MyBackgroundCheckService.Processor
     {
         private readonly ISender _sender;
         private readonly IQueueService _queueService;
-        private readonly IRepository _repository;
         const string InvitationQueueName = "invitation";
 
-        public InvitationProcessor(ISender sender, IQueueService queueService, IRepository repository)
+        public InvitationProcessor(ISender sender, IQueueService queueService)
         {
             _sender = sender;
             _queueService = queueService;
-            _repository = repository;
         }
         
         public async Task Process()
@@ -36,19 +34,32 @@ namespace MyBackgroundCheckService.Processor
                     {
                         case SendResult.Success:
                             _queueService.Named(InvitationQueueName).Remove(JsonConvert.SerializeObject(invitation));
+                            // code can fail to remove from queue
+                            // Invitation in queue will be picked up again > sent to Provider > Response Success again
                             break;
 
                         case SendResult.FailPermanently:
                             Console.WriteLine("Request failed permanently.");
-                            // update status in postgresql
-                            var invitaionEntity = new InvitationEntity
+                            // update status via API
+                            // Do not update DB directly here. Do not tie up DB with Processor
+                            var putEndPoint = $"http://localhost:4777/api/invitation/{invitation.Id}/status";
+                            var result = await new HttpClient().PutAsJsonAsync(putEndPoint, "InvalidRequest");
+                
+                            // call status update API, upon 500, retry till 2xx received
+                            if (response.StatusCode == StatusCode.OK)
                             {
-                                Id = invitation.Id,
-                                ApplicantProfile = invitation.ApplicantProfile,
-                                Status = "InvalidRequest"
-                            };
-                            _repository.UpSert(invitaionEntity);
-                            _queueService.Named(InvitationQueueName).Remove(JsonConvert.SerializeObject(invitation));
+                                _queueService.Named(InvitationQueueName).Remove(JsonConvert.SerializeObject(invitation));
+                                // code can fail to remove from queue
+                                // Invitation in queue will be picked up again > sent to Provider > Response FailPermanently again
+                            }
+                            else
+                            {
+                                // code can reach here if:
+                                // 1. PUT API is down. 
+                                // 2. DB update failed
+                                // Do nothing. 
+                                // Invitation in queue will be picked up again > sent to Provider > Response FailPermanently again
+                            }
                             break;
 
                         case SendResult.TryAgain:

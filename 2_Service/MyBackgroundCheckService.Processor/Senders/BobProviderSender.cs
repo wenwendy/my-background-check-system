@@ -16,6 +16,7 @@ namespace MyBackgroundCheckService.Processor.Senders
             };
 
             var response = await client.PostAsJsonAsync("", invitation);
+            // potential response like "invitation already existed" needs to be treated as "Success"
 
             Console.WriteLine($"2_Service: Response from Provider is {response.StatusCode}");
             
