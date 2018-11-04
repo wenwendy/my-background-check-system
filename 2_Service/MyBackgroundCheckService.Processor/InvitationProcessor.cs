@@ -1,7 +1,6 @@
 ﻿using System.Threading.Tasks;
 using System;
 using MyBackgroundCheckService.Library.DTOs;
-using MyBackgroundCheckService.Library.DAL;
 using MyBackgroundCheckService.Processor.Senders;
 using Newtonsoft.Json;
 using MyBackgroundCheckService.Library;
