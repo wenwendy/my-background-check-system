@@ -73,8 +73,9 @@ namespace MyBackgroundCheckService.Api.Controllers
                 // option 1
                 // pros:
                 //   less point of failure - DB or node
+                //   less delay when load is low
                 // cons:
-                //   
+                //   not self healing when DB is down
                 var invitation = _repository.Get(id);
                 invitation.Status = status;
                 _repository.UpSert(invitation);
@@ -85,9 +86,11 @@ namespace MyBackgroundCheckService.Api.Controllers
                 // option 2
                 // pros: 
                 //   when request load is high (including batch operations), DB load is spreaded avoiding DB spike
+                //   partial self healing. As long as queue is up, there's no need to rely on 3rd party re-sending status update
                 // cons: 
                 //   when request load is low, updated status takes slightly longer to reflect on GET.
                 //   more point of failures. in case of queue / status DB updator failure, updated status takes longer to reflect.
+                //   not fully self healing when queue is down.
                 var statusUpdateRequest = new {
                     id = id,
                     status = status

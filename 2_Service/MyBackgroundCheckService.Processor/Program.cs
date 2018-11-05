@@ -10,9 +10,10 @@ namespace MyBackgroundCheckService.Processor
     static class Program
     {
         static async Task Main(string[] args)
-        {   
+        {
+            // if using AWS, each task can be a lambda
             var t1 = ProcessInvitation();
-            var t2 = UpdateStatusToDB();
+            var t2 = UpdateStatusToDB();//this can be a separate project to further mitigate node failure
 
             await Task.WhenAll(t1, t2);
         }

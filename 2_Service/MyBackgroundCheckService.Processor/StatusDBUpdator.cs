@@ -1,7 +1,6 @@
 ﻿using System;
 using MyBackgroundCheckService.Library.DAL;
 using MyBackgroundCheckService.Library;
-using Newtonsoft.Json.Linq;
 using System.Threading.Tasks;
 using Newtonsoft.Json;
 
@@ -42,7 +41,7 @@ namespace MyBackgroundCheckService.Processor
                 }
                 catch (Exception e)
                 {
-                    // do not crash the process, wait for the next cycle
+                    // do not crash the process, wait for the next cycle and hope for self healing
                     Console.WriteLine(e.Message);
                 }
                 
