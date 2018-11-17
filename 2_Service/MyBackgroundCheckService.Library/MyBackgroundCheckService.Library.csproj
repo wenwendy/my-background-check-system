@@ -13,5 +13,6 @@
   <ItemGroup>
     <Folder Include="DTOs\" />
     <Folder Include="DAL\" />
+    <Folder Include="Domain\" />
   </ItemGroup>
 </Project>

@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Mvc;
 using MyBackgroundCheckService.Library;
 using MyBackgroundCheckService.Library.DAL;
 using MyBackgroundCheckService.Library.DTOs;
+using MyBackgroundCheckService.Library.Domain;
 using Newtonsoft.Json;
 
 namespace MyBackgroundCheckService.Api.Controllers
@@ -26,12 +27,13 @@ namespace MyBackgroundCheckService.Api.Controllers
 
             try
             {
-                // save to DB first because this won't result in down stream effects
-                _repository.IdempotentAdd(new InvitationEntity { 
-                    Id = invitation.Id, 
-                    ApplicantProfile = invitation.ApplicantProfile, 
-                    Status = "New" });
-                // machine can fail here
+                // TODO: use injection
+                var addInvitationCommand = new AddInvitationCommand
+                {
+                    InvitationDto = invitation
+                };
+                var commandHandler = new AddInvitationCommandHandler(_repository);
+                commandHandler.Handle(addInvitationCommand);
             }
             catch(Exception ex)
             {
@@ -42,8 +44,7 @@ namespace MyBackgroundCheckService.Api.Controllers
                 return StatusCode(500, "Server error. Try again later.");
             }
 
-            // 2xx response only returned when both DB and queue are updated successfully
-            return Accepted();
+            return Ok();
         }
 
         [HttpGet("{id}")]
@@ -65,21 +66,8 @@ namespace MyBackgroundCheckService.Api.Controllers
             Console.WriteLine($"Received a request to update status to {status} for invitation (id={id})");
             try
             {
-                // option 1
-                // pros:
-                //   less point of failure - DB or node
-                //   less delay when load is low
-                // cons:
-                //   not self healing when DB is down
-                var invitation = _repository.Get(id);
-                invitation.Status = status;
-                _repository.IdempotentAdd(invitation);
-                Console.WriteLine("Done");
-
-                return Ok(invitation);
-
-                // option 2
                 // pros: 
+                //   less code changes when 3rd party communication interface changes
                 //   when request load is high (including batch operations), DB load is spreaded avoiding DB spike
                 //   partial self healing. As long as queue is up, there's no need to rely on 3rd party re-sending status update
                 // cons: 

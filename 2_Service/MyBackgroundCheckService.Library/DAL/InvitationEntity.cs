@@ -2,6 +2,7 @@
 
 namespace MyBackgroundCheckService.Library.DAL
 {
+    // Domain aggregate??
     public class InvitationEntity
     {
         public int Id { get; set; }
