@@ -2,7 +2,8 @@
 {
     public interface IRepository
     {
-        void UpSert(InvitationEntity invitation);
+        void IdempotentAdd(InvitationEntity invitation);
         InvitationEntity Get(int id);
+        void Update(InvitationEntity invitaion);
     }
 }

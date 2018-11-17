@@ -12,17 +12,29 @@ namespace MyBackgroundCheckService.Library.DAL
     {
         private const string _connectionString = "Host=localhost;Port=2345;Username=postgres;Password=abc123;Database=background_check;";
 
-        public void UpSert(InvitationEntity invitation)
+        public void IdempotentAdd(InvitationEntity invitation)
         {
             //save to postgres db
 
             var profile = JsonConvert.SerializeObject(invitation.ApplicantProfile);
-            var commandString = $@"INSERT INTO public.invitation (invitation, applicant_profile, status)
+            var commandString = $@"
+            BEGIN TRANSACTION;
+            
+            INSERT INTO public.invitation (invitation, applicant_profile, status)
                     VALUES ({invitation.Id}, '{profile}', '{invitation.Status}')
                     ON CONFLICT(invitation)
                     DO
                       UPDATE
-                        SET applicant_profile = EXCLUDED.applicant_profile, status = EXCLUDED.status;";
+                        SET applicant_profile = EXCLUDED.applicant_profile, status = EXCLUDED.status;
+                        
+            INSERT INTO public.invitation_received_event (invitation, applicant_profile)
+                    VALUES ({invitation.Id}, '{profile}')
+                    ON CONFLICT(invitation)
+                    DO
+                      UPDATE
+                        SET applicant_profile = EXCLUDED.applicant_profile;
+                         
+            END TRANSACTION";
 
             try
             {
@@ -62,6 +74,29 @@ namespace MyBackgroundCheckService.Library.DAL
                 ApplicantProfile = JsonConvert.DeserializeObject<ApplicantProfile>(temp.ApplicantProfile),
                 Status = temp.Status
             };
+        }
+
+        public void Update(InvitationEntity invitation)
+        {
+            var profile = JsonConvert.SerializeObject(invitation.ApplicantProfile);
+            var commandString = $@"
+            UPDATE public.invitation
+            SET applicant_profile = {profile}, status = {invitation.Status}
+            WHERE invitation = {invitation.Id};";
+
+            try
+            {
+                using (var connection = new NpgsqlConnection(_connectionString))
+                {
+                    connection.Open();
+
+                    connection.Execute(commandString);
+                }
+            }
+            catch(Exception e)
+            {
+                Console.WriteLine(e.Message);
+            }
         }
     }
 }

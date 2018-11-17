@@ -34,7 +34,7 @@ namespace MyBackgroundCheckService.Processor
                         var invitation = _repository.Get(id);
                         invitation.Status = request["status"];
 
-                        _repository.UpSert(invitation);
+                        _repository.Update(invitation);
 
                         _queueService.Remove(serializedRequest);
                     }

@@ -23,6 +23,13 @@
       PRIMARY KEY (invitation)
     );
   ```
+  ```
+    CREATE TABLE invitation_received_event (
+      invitation integer,
+      applicant_profile json NOT NULL,
+      PRIMARY KEY (invitation)
+    );
+  ```
   - Check table schema `\d [table_name]`
   - Insert a record
   ```
