@@ -98,5 +98,53 @@ namespace MyBackgroundCheckService.Library.DAL
                 Console.WriteLine(e.Message);
             }
         }
+
+        public InvitationReveivedEventEntity GetNextEvent()
+        {
+            var commandString = $"SELECT TOP 1 invitation AS \"Id\", applicant_profile AS \"ApplicantProfile\" " +
+                "FROM public.invitation_received_event;";
+
+            try
+            {
+                using (var connection = new NpgsqlConnection(_connectionString))
+                {
+                    connection.Open();
+
+                    // TODO: 
+                    // get a record from DB
+                    //connection.Execute(commandString);
+                    // serialize into InvitationReceivedEventEntity
+                    return new InvitationReveivedEventEntity
+                    {
+                        Id = 123,
+                        SerializedApplicantProfile = "{\"Name\":\"Alice\",\"Dob\":\"1990 Dec 10\",\"Address\":\"42 Abc Street, Melbourne\",\"Education\":\"Swinburne Uni 2010\"}"
+                    };
+                }
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine(e.Message);
+                throw;
+            }
+        }
+
+        public void DeleteEvent(int invitationId)
+        {
+            var commandString = $"DELETE FROM public.invitation_received_event WHERE invitation = {invitationId};";
+
+            try
+            {
+                using (var connection = new NpgsqlConnection(_connectionString))
+                {
+                    connection.Open();
+
+                    connection.Execute(commandString);
+                }
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine(e.Message);
+            }
+        }
     }
 }

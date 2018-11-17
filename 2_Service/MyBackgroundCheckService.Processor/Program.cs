@@ -13,9 +13,11 @@ namespace MyBackgroundCheckService.Processor
         {
             // if using AWS, each task can be a lambda
             var t1 = ProcessInvitation();
-            var t2 = UpdateStatusToDB();//this can be a separate project to further mitigate node failure
+            // can be a separate project to further mitigate node failure
+            var t2 = UpdateStatusToDB();
+            var t3 = QueueInvitationReceivedEvent();
 
-            await Task.WhenAll(t1, t2);
+            await Task.WhenAll(t1, t2, t3);
         }
 
         private static async Task ProcessInvitation()
@@ -30,6 +32,13 @@ namespace MyBackgroundCheckService.Processor
             Console.WriteLine("Status DB updator started. Awaiting ...");
             var statusDBUpdator = new StatusDBUpdator(new LocalFileQueueService(), new Repository());
             await statusDBUpdator.Process();
+        }
+
+        private static async Task QueueInvitationReceivedEvent()
+        {
+            Console.WriteLine("Invitation received event poller started. Awaiting ...");
+            var eventPoller = new EventPoller(new LocalFileQueueService(), new Repository());
+            await eventPoller.Process();
         }
 
     }
