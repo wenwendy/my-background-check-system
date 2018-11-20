@@ -10,7 +10,33 @@
 https://drive.google.com/open?id=1Dmr92cjSGeBbkH4iam0vJTXZuXOXiZPY
   
 ### Takeaways
-
+- Purpose of DTO: break coupling
+- Remove `Try / Catch` so that exception can be handled in one place. Configure correctly so that stack trace is not revealed to caller.
+  - Controller: good candidate to apply railway programming (2xx / 5xx)
+- Naming: "DTO" > what exactly it is   
+- Creating a command
+  - it needs to be valid
+  - validation done in constructor
+  - return `EitherSomeError` upon validation failure
+  - Does 2 things: transform a request to a command / persist into DB
+    - Test so that easily knows which part fails
+- Aggregate 
+  - Entity 
+  - It shouldn't change when data store implementation changes
+  - Repository layer: persists aggregate to data store   
+  - Performs validation 
+  - Having a getter encourages validation out side of aggregate (not good)
+  - Regulates the writing. (CQRS - reading is regulated separately)
+- Test command 
+  - In memory implementation of IRepository
+  - Avoid mocking up http
+- Version
+  - Part of repository, not aggregate
+  - ORM version management  
+- To validate a design
+  - try to add some business logic and should expect minimum changes (e.g. no editing on existing handlers).
+  - try to add more fields as per vendor requests
+  
 
 void Test()
 {
