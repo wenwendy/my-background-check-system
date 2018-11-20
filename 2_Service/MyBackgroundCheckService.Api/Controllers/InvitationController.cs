@@ -25,10 +25,14 @@ namespace MyBackgroundCheckService.Api.Controllers
         {
             Console.WriteLine($"2_Service: Received an invitation request {JsonConvert.SerializeObject(invitation)}");
 
+            // TODO MC: Get rid of exception handing in controller. (have exception dealt with in pipeline)
             try
             {
+                // TODO MC: make this railway oriented... (request -> command)
                 // TODO: use injection
-                var addInvitationCommand = new AddInvitationCommand
+                // Either<SomeError, AddInvitationCommand>
+                // TODO MC: Also consider adding in memory tests around handler.
+                AddInvitationCommand addInvitationCommand = new AddInvitationCommand
                 {
                     InvitationDto = invitation
                 };

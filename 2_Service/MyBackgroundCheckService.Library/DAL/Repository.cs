@@ -8,7 +8,7 @@ using MyBackgroundCheckService.Library.DTOs;
 
 namespace MyBackgroundCheckService.Library.DAL
 {
-    public class Repository : IRepository
+    public class InvitationRepository : IRepository
     {
         private const string _connectionString = "Host=localhost;Port=2345;Username=postgres;Password=abc123;Database=background_check;";
 

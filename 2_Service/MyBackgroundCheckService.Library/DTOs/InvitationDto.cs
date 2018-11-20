@@ -1,5 +1,7 @@
 ﻿namespace MyBackgroundCheckService.Library.DTOs
 {
+    // // TODO MC: rename to something like: InvitationPostBody
+    // (and rename all other DTO's to what they actually are.)
     public class InvitationDto
     {
         public int Id {get; set;}
