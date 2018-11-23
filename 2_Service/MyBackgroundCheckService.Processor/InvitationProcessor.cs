@@ -71,15 +71,15 @@ namespace MyBackgroundCheckService.Processor
             }
         }
         
-        private InvitationDto GetAnInvitationFromQueue()
+        private InvitationPostRequestBody GetAnInvitationFromQueue()
         {
-            InvitationDto invitation = null;
+            InvitationPostRequestBody invitation = null;
 
             var invitationJsonString = _queueService.Named(InvitationQueueName).GetAQueueItem();
 
             if (string.IsNullOrEmpty(invitationJsonString)) return invitation;
 
-            invitation = JsonConvert.DeserializeObject<InvitationDto>(invitationJsonString);
+            invitation = JsonConvert.DeserializeObject<InvitationPostRequestBody>(invitationJsonString);
             
             Console.WriteLine($"2_Service: Found an invitation to process: {JsonConvert.SerializeObject(invitation)}");
 

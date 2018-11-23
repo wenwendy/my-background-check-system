@@ -1,10 +1,12 @@
-﻿namespace MyBackgroundCheckService.Library.DAL
+﻿using MyBackgroundCheckService.Library.Domain;
+
+namespace MyBackgroundCheckService.Library.DAL
 {
     public interface IRepository
     {
-        void IdempotentAdd(InvitationEntity invitation);
-        InvitationEntity Get(int id);
-        void Update(InvitationEntity invitaion);
+        void IdempotentAdd(InvitationAggregate invitation);
+        InvitationAggregate Get(int id);
+        void Update(InvitationAggregate invitaion);
 
         InvitationReveivedEventEntity GetNextEvent();
         void DeleteEvent(int invitationId);

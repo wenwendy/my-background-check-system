@@ -3,6 +3,7 @@ using Dapper;
 using Npgsql;
 using System;
 using System.Collections.Generic;
+using MyBackgroundCheckService.Library.Domain;
 using Newtonsoft.Json;
 using MyBackgroundCheckService.Library.DTOs;
 
@@ -12,7 +13,7 @@ namespace MyBackgroundCheckService.Library.DAL
     {
         private const string _connectionString = "Host=localhost;Port=2345;Username=postgres;Password=abc123;Database=background_check;";
 
-        public void IdempotentAdd(InvitationEntity invitation)
+        public void IdempotentAdd(InvitationAggregate invitation)
         {
             //save to postgres db
 
@@ -51,7 +52,7 @@ namespace MyBackgroundCheckService.Library.DAL
             }
         }
 
-        public InvitationEntity Get(int id)
+        public InvitationAggregate Get(int id)
         {
             List<InvitationTemp> invitations = null;
             var commandString = $"SELECT invitation AS \"Id\", applicant_profile AS \"ApplicantProfile\", status AS \"Status\" FROM public.invitation WHERE invitation = {id};";
@@ -68,7 +69,7 @@ namespace MyBackgroundCheckService.Library.DAL
                 Console.WriteLine(e.Message);
             }
             var temp = invitations.FirstOrDefault(i => i.Id == id);
-            return new InvitationEntity
+            return new InvitationAggregate
             {
                 Id = temp.Id,
                 ApplicantProfile = JsonConvert.DeserializeObject<ApplicantProfile>(temp.ApplicantProfile),
@@ -76,7 +77,7 @@ namespace MyBackgroundCheckService.Library.DAL
             };
         }
 
-        public void Update(InvitationEntity invitation)
+        public void Update(InvitationAggregate invitation)
         {
             var profile = JsonConvert.SerializeObject(invitation.ApplicantProfile);
             var commandString = $@"

@@ -21,7 +21,7 @@ namespace MyBackgroundCheckService.Api.Controllers
         }
 
         [HttpPost]
-        public IActionResult Add([FromBody] InvitationDto invitation)
+        public IActionResult Add([FromBody] InvitationPostRequestBody invitation)
         {
             Console.WriteLine($"2_Service: Received an invitation request {JsonConvert.SerializeObject(invitation)}");
 
@@ -32,10 +32,7 @@ namespace MyBackgroundCheckService.Api.Controllers
                 // TODO: use injection
                 // Either<SomeError, AddInvitationCommand>
                 // TODO MC: Also consider adding in memory tests around handler.
-                AddInvitationCommand addInvitationCommand = new AddInvitationCommand
-                {
-                    InvitationDto = invitation
-                };
+                AddInvitationCommand addInvitationCommand = new AddInvitationCommand(invitation);
                 var commandHandler = new AddInvitationCommandHandler(_repository);
                 commandHandler.Handle(addInvitationCommand);
             }

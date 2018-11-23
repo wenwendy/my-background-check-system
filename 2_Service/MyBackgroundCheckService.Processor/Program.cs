@@ -30,14 +30,14 @@ namespace MyBackgroundCheckService.Processor
         private static async Task UpdateStatusToDB()
         {
             Console.WriteLine("Status DB updator started. Awaiting ...");
-            var statusDBUpdator = new StatusDBUpdator(new LocalFileQueueService(), new Repository());
+            var statusDBUpdator = new StatusDBUpdator(new LocalFileQueueService(), new InvitationRepository());
             await statusDBUpdator.Process();
         }
 
         private static async Task QueueInvitationReceivedEvent()
         {
             Console.WriteLine("Invitation received event poller started. Awaiting ...");
-            var eventPoller = new EventPoller(new LocalFileQueueService(), new Repository());
+            var eventPoller = new EventPoller(new LocalFileQueueService(), new InvitationRepository());
             await eventPoller.Process();
         }
 

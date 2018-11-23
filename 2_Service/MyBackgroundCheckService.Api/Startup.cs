@@ -20,7 +20,7 @@ namespace MyBackgroundCheckService.Api
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddMvc();
-            services.AddTransient<IRepository, Repository>();
+            services.AddTransient<IRepository, InvitationRepository>();
             services.AddTransient<IQueueService, LocalFileQueueService>();
         }
 

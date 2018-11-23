@@ -9,9 +9,7 @@
     <PackageReference Include="Npgsql" Version="4.0.2" />
     <PackageReference Include="Newtonsoft.Json" Version="11.0.2" />
   </ItemGroup>
-
   <ItemGroup>
-    <Folder Include="DTOs\" />
     <Folder Include="DAL\" />
     <Folder Include="Domain\" />
   </ItemGroup>

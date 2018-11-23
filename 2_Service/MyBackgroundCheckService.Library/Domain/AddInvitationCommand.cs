@@ -1,42 +1,28 @@
-﻿using MyBackgroundCheckService.Library.DTOs;
-using MyBackgroundCheckService.Library.DAL;
+﻿using System.IO;
+using MyBackgroundCheckService.Library.DTOs;
 
 namespace MyBackgroundCheckService.Library.Domain
 {
     // TODO MC: give a constructor and bullet proof it.
     public class AddInvitationCommand
     {
-        public InvitationDto InvitationDto;
-    }
-
-    public class AddInvitationCommandHandler
-    {
-        private IRepository _repository;
-
-        public AddInvitationCommandHandler(IRepository repository)
+        public AddInvitationCommand(InvitationPostRequestBody invitation)
         {
-            _repository = repository;
-        }
-
-        public void Handle(AddInvitationCommand command)
-        {
-            // TODO MC: maybe consider renaming InvitationEntity to InvitationAggregate.
-            // save to DB with event
-            // command -> aggregate
-            var aggregate = new InvitationEntity
+            // ensure command is valid
+            // TODO: railway
+            if (IsValid(invitation))
             {
-                Id = command.InvitationDto.Id,
-                ApplicantProfile = command.InvitationDto.ApplicantProfile,
-                Status = "New"
-            };
-            _repository.IdempotentAdd(aggregate);
-            // machine can fail here
-            //raise event InvitationCreated
+                Invitation = invitation;
+            }
+            throw new InvalidDataException("invitation post body not valid");
         }
 
-        public static InvitationEntity TransformToAggregate(AddInvitationCommand cmd)
-        {}
-        
-    }
+        private bool IsValid(InvitationPostRequestBody invitation)
+        {
+            // some validation logic around invitation
+            return true;
+        }
 
+        public InvitationPostRequestBody Invitation { get; }
+    }
 }

@@ -1,9 +1,8 @@
 ﻿using MyBackgroundCheckService.Library.DTOs;
 
-namespace MyBackgroundCheckService.Library.DAL
+namespace MyBackgroundCheckService.Library.Domain
 {
-    // Domain aggregate??
-    public class InvitationEntity
+    public class InvitationAggregate
     {
         public int Id { get; set; }
 
