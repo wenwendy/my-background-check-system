@@ -5,6 +5,8 @@ using MyBackgroundCheckService.Library.DAL;
 using MyBackgroundCheckService.Library.DTOs;
 using MyBackgroundCheckService.Library.Domain;
 using Newtonsoft.Json;
+using LanguageExt;
+using static LanguageExt.Prelude;
 
 namespace MyBackgroundCheckService.Api.Controllers
 {
@@ -13,11 +15,19 @@ namespace MyBackgroundCheckService.Api.Controllers
     {
         private readonly IRepository _repository;
         private readonly IQueueService _queueService;
+        private readonly AddInvitationCommandHandler _addInvitationCommandHandler;
+        private readonly CommandGenerator _commandGenerator;
 
-        public InvitationController(IRepository repository, IQueueService queueService)
+        public InvitationController(
+            IRepository repository,
+            IQueueService queueService
+            )
         {
             _repository = repository;
             _queueService = queueService;
+            // TODO: inject them
+            _addInvitationCommandHandler = new AddInvitationCommandHandler(_repository);
+            _commandGenerator = new CommandGenerator();
         }
 
         [HttpPost]
@@ -25,27 +35,22 @@ namespace MyBackgroundCheckService.Api.Controllers
         {
             Console.WriteLine($"2_Service: Received an invitation request {JsonConvert.SerializeObject(invitation)}");
 
-            // TODO MC: Get rid of exception handing in controller. (have exception dealt with in pipeline)
-            try
-            {
-                // TODO MC: make this railway oriented... (request -> command)
-                // TODO: use injection
-                // Either<SomeError, AddInvitationCommand>
-                // TODO MC: Also consider adding in memory tests around handler.
-                AddInvitationCommand addInvitationCommand = new AddInvitationCommand(invitation);
-                var commandHandler = new AddInvitationCommandHandler(_repository);
-                commandHandler.Handle(addInvitationCommand);
-            }
-            catch(Exception ex)
-            {
-                Console.WriteLine(ex.Message);
-                // It's caller's responsibility to try again upon receiving 500 error.
-                // can reache here when: 
-                //   DB saving exceptioned - caller's retry can fix temporary error
-                return StatusCode(500, "Server error. Try again later.");
-            }
+            return _commandGenerator.CreateAddInvitationCommand(invitation)
+                     .Match(f => StatusCode(400, f.Message),
+                            cmd => _addInvitationCommandHandler.Handle(cmd)
+                            .Match(f =>
+                            {
+                                Console.WriteLine($"error is: {f.Message}");
+                                // do not expose error details to API
+                                return StatusCode(500, "Server error. Try again later.");
+                            },
+                                   u => StatusCode(200, "good")));
+            
+            /*
+            // TODO MC: make this railway oriented... (request -> command)
+            // Either<SomeError, AddInvitationCommand>
+            // TODO MC: Also consider adding in memory tests around handler.*/
 
-            return Ok();
         }
 
         [HttpGet("{id}")]

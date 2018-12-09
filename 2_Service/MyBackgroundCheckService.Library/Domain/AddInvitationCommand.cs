@@ -1,5 +1,6 @@
 ﻿using System.IO;
 using MyBackgroundCheckService.Library.DTOs;
+using LanguageExt;
 
 namespace MyBackgroundCheckService.Library.Domain
 {
@@ -8,21 +9,25 @@ namespace MyBackgroundCheckService.Library.Domain
     {
         public AddInvitationCommand(InvitationPostRequestBody invitation)
         {
-            // ensure command is valid
-            // TODO: railway
+            // ensure command is valid - definition of "valid command"? domain business logic? vendor logic?
+            // TODO: railway - how?
             if (IsValid(invitation))
             {
                 Invitation = invitation;
             }
-            throw new InvalidDataException("invitation post body not valid");
+            else
+            {
+                throw new InvalidDataException("invitation post body not valid");
+            }
         }
-
         private bool IsValid(InvitationPostRequestBody invitation)
         {
             // some validation logic around invitation
-            return true;
+            // e.g. Id value constraint
+            return invitation != null && (invitation.Id > 0);
         }
 
         public InvitationPostRequestBody Invitation { get; }
+
     }
 }
