@@ -30,9 +30,13 @@ namespace MyBackgroundCheckService.Api.Controllers
             _commandGenerator = new CommandGenerator();
         }
 
+        // responsibility:
+        //   - provide a meaningful response basing on the request so that caller is clear on the next step
+        //   - logging?
         [HttpPost]
         public IActionResult Add([FromBody] InvitationPostRequestBody invitation)
         {
+            //TODO: replace with a logger and inject
             Console.WriteLine($"2_Service: Received an invitation request {JsonConvert.SerializeObject(invitation)}");
 
             return _commandGenerator.CreateAddInvitationCommand(invitation)
@@ -44,7 +48,7 @@ namespace MyBackgroundCheckService.Api.Controllers
                                 // do not expose error details to API
                                 return StatusCode(500, "Server error. Try again later.");
                             },
-                                   u => StatusCode(200, "good")));
+                                   u => StatusCode(200, "success")));
             
             /*
             // TODO MC: make this railway oriented... (request -> command)

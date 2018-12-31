@@ -4,9 +4,9 @@ using LanguageExt;
 
 namespace MyBackgroundCheckService.Library.Domain
 {
-    // TODO MC: give a constructor and bullet proof it.
     public class AddInvitationCommand
     {
+        // responsiblity: create a valid command basing on request
         public AddInvitationCommand(InvitationPostRequestBody invitation)
         {
             // ensure command is valid - definition of "valid command"? domain business logic? vendor logic?

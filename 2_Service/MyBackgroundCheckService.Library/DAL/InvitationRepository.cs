@@ -7,7 +7,6 @@ using MyBackgroundCheckService.Library.Domain;
 using Newtonsoft.Json;
 using MyBackgroundCheckService.Library.DTOs;
 using LanguageExt;
-using static LanguageExt.Prelude;
 
 namespace MyBackgroundCheckService.Library.DAL
 {
@@ -15,6 +14,7 @@ namespace MyBackgroundCheckService.Library.DAL
     {
         private const string _connectionString = "Host=localhost;Port=2345;Username=postgres;Password=abc123;Database=background_check;";
 
+        // responsibility: persist given aggregate to data store
         public Either<Unit, Failure> IdempotentAdd(InvitationAggregate invitation)
         {
             //save to postgres db
@@ -52,10 +52,8 @@ namespace MyBackgroundCheckService.Library.DAL
             {
                 Console.WriteLine(e.Message);
                 return new Failure { Message = e.Message };
-                //return Right<Unit, Failure> (new Failure { Message = e.Message });
             }
             return Unit.Default;
-            //return Left<Unit, Failure>(Unit.Default);
         }
 
         public InvitationAggregate Get(int id)
