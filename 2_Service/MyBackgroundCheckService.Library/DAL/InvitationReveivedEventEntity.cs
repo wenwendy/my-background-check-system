@@ -1,6 +1,4 @@
-﻿using MyBackgroundCheckService.Library.DTOs;
-
-namespace MyBackgroundCheckService.Library.DAL
+﻿namespace MyBackgroundCheckService.Library.DAL
 {
     public class InvitationReveivedEventEntity
     {

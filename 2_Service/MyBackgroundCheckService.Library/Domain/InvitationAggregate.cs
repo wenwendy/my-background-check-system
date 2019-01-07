@@ -1,22 +1,20 @@
-﻿using MyBackgroundCheckService.Library.DTOs;
-
-namespace MyBackgroundCheckService.Library.Domain
+﻿namespace MyBackgroundCheckService.Library.Domain
 {
     public class InvitationAggregate
     {
-        public int Id { get; set; }
+        public InvitationAggregate(int id, ApplicantProfile applicantProfile, string status)
+        {
+            Id = id;
+            ApplicantProfile = applicantProfile;
+            Status = status;
+        }
 
-        public ApplicantProfile ApplicantProfile { get; set; }
 
-        public string Status { get; set; }
+        public int Id { get; private set; }
+
+        public ApplicantProfile ApplicantProfile { get; private set; }
+
+        public string Status { get; private set; }
     }
 
-
-    //TODO: read json field from postgres and parse into DTO
-    public class InvitationTemp
-    {
-        public int Id { get; set; }
-        public string ApplicantProfile { get; set; }
-        public string Status { get; set; }
-    }
 }

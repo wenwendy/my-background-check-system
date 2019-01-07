@@ -1,6 +1,4 @@
 ﻿using System.IO;
-using MyBackgroundCheckService.Library.DTOs;
-using LanguageExt;
 
 namespace MyBackgroundCheckService.Library.Domain
 {

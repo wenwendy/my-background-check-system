@@ -32,7 +32,8 @@ namespace MyBackgroundCheckService.Processor
                         int.TryParse(request["id"], out int id);
 
                         var invitation = _repository.Get(id);
-                        invitation.Status = request["status"];
+                        // TODO: UpdateStatusCmommand
+                        // invitation.Status = request["status"];
 
                         _repository.Update(invitation);
 

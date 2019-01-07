@@ -2,11 +2,8 @@
 using Microsoft.AspNetCore.Mvc;
 using MyBackgroundCheckService.Library;
 using MyBackgroundCheckService.Library.DAL;
-using MyBackgroundCheckService.Library.DTOs;
 using MyBackgroundCheckService.Library.Domain;
 using Newtonsoft.Json;
-using LanguageExt;
-using static LanguageExt.Prelude;
 
 namespace MyBackgroundCheckService.Api.Controllers
 {
@@ -42,14 +39,15 @@ namespace MyBackgroundCheckService.Api.Controllers
             return _commandGenerator.CreateAddInvitationCommand(invitation)
                      .Match(f => StatusCode(400, f.Message),
                             cmd => _addInvitationCommandHandler.Handle(cmd)
-                            .Match(f =>
-                            {
-                                Console.WriteLine($"error is: {f.Message}");
-                                // do not expose error details to API
-                                return StatusCode(500, "Server error. Try again later.");
-                            },
-                                   u => StatusCode(200, "success")));
-            
+                            .Match(
+                                u => StatusCode(200, "success"),
+                                f =>
+                                {
+                                    Console.WriteLine($"error is: {f.Message}");
+                                    // do not expose error details to API
+                                    return StatusCode(500, "Server error. Try again later.");
+                                }
+                           ));
             /*
             // TODO MC: make this railway oriented... (request -> command)
             // Either<SomeError, AddInvitationCommand>

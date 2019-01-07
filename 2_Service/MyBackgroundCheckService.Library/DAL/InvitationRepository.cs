@@ -5,7 +5,6 @@ using System;
 using System.Collections.Generic;
 using MyBackgroundCheckService.Library.Domain;
 using Newtonsoft.Json;
-using MyBackgroundCheckService.Library.DTOs;
 using LanguageExt;
 
 namespace MyBackgroundCheckService.Library.DAL
@@ -15,7 +14,7 @@ namespace MyBackgroundCheckService.Library.DAL
         private const string _connectionString = "Host=localhost;Port=2345;Username=postgres;Password=abc123;Database=background_check;";
 
         // responsibility: persist given aggregate to data store
-        public Either<Unit, Failure> IdempotentAdd(InvitationAggregate invitation)
+        public Either<Failure, Unit> IdempotentAdd(InvitationAggregate invitation)
         {
             //save to postgres db
 
@@ -73,12 +72,10 @@ namespace MyBackgroundCheckService.Library.DAL
                 Console.WriteLine(e.Message);
             }
             var temp = invitations.FirstOrDefault(i => i.Id == id);
-            return new InvitationAggregate
-            {
-                Id = temp.Id,
-                ApplicantProfile = JsonConvert.DeserializeObject<ApplicantProfile>(temp.ApplicantProfile),
-                Status = temp.Status
-            };
+            return new InvitationAggregate(
+                temp.Id,
+                JsonConvert.DeserializeObject<ApplicantProfile>(temp.ApplicantProfile),
+                temp.Status);
         }
 
         public void Update(InvitationAggregate invitation)
@@ -150,6 +147,15 @@ namespace MyBackgroundCheckService.Library.DAL
             {
                 Console.WriteLine(e.Message);
             }
+        }
+
+
+        //TODO: read json field from postgres and parse into aggregate
+        private class InvitationTemp
+        {
+            public int Id { get; set; }
+            public string ApplicantProfile { get; set; }
+            public string Status { get; set; }
         }
     }
 }

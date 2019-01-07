@@ -1,11 +1,5 @@
-﻿namespace MyBackgroundCheckService.Library.DTOs
+﻿namespace MyBackgroundCheckService.Library
 {
-    public class InvitationPostRequestBody
-    {
-        public int Id {get; set;}
-        public ApplicantProfile ApplicantProfile { get; set; }
-    }
-
     public class ApplicantProfile
     {
         public string Name { get; set; }
