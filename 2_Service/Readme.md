@@ -3,6 +3,9 @@
   - POST: Create a background check invitation
   - GET: Query the status of an existing invitation
   - PUT: Update the status of an existing invitation
+- Run tests
+  - `cd MyBackgroundCheckService.Tests`
+  - `dotnet test`
 - Database setup
   - Run PostgreSQL `docker run -p 2345:5432 --name wwpostgres -e POSTGRES_PASSWORD=abc123 -d postgres`
   - Restart PostgreSQL `docker start wwpostgres`

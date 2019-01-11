@@ -42,6 +42,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BackgroundCheckProvider.Sta
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MyBackgroundCheckService.Processor", "2_Service\MyBackgroundCheckService.Processor\MyBackgroundCheckService.Processor.csproj", "{87B52D8E-40C7-48EB-AA72-4221E32565E8}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MyBackgroundCheckService.Tests", "2_Service\MyBackgroundCheckService.Tests\MyBackgroundCheckService.Tests.csproj", "{A1F54673-CF49-4E13-AA1D-19DE4B86205C}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -72,6 +74,10 @@ Global
 		{87B52D8E-40C7-48EB-AA72-4221E32565E8}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{87B52D8E-40C7-48EB-AA72-4221E32565E8}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{87B52D8E-40C7-48EB-AA72-4221E32565E8}.Release|Any CPU.Build.0 = Release|Any CPU
+		{A1F54673-CF49-4E13-AA1D-19DE4B86205C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A1F54673-CF49-4E13-AA1D-19DE4B86205C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A1F54673-CF49-4E13-AA1D-19DE4B86205C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A1F54673-CF49-4E13-AA1D-19DE4B86205C}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -84,6 +90,7 @@ Global
 		{C703E7AE-75D6-4BA4-9A1A-F033161AA1F6} = {D6DECAB8-6B59-4814-9F1F-B0AE0D4ACDD5}
 		{1287548E-A4F3-44ED-B420-D36AC1E3ACEE} = {D6DECAB8-6B59-4814-9F1F-B0AE0D4ACDD5}
 		{87B52D8E-40C7-48EB-AA72-4221E32565E8} = {36CE2D65-BA35-474D-ACC0-61055F02955D}
+		{A1F54673-CF49-4E13-AA1D-19DE4B86205C} = {36CE2D65-BA35-474D-ACC0-61055F02955D}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {2DD9EEC0-1E46-4687-9ECF-C9A4D59424F1}
